@@ -3,6 +3,23 @@
 
 ## Instalacja
 
+### Linux
+
+- Instalacja serwera Redis
+~~~ bash
+sudo apt-get install redis-server
+~~~
+
+~~~ bash
+- Sprawdzenie statusu 
+sudo systemctl status redis
+~~~
+
+- Podłączenie
+~~~ bash
+sudo redis-cli
+~~~
+
 ### Docker
 - Pobranie obrazu
 ~~~
