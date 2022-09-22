@@ -106,6 +106,12 @@ docker-compose down
 | **MONITOR** | Włączenie śledzenia |
 | **OBJECT FREQ**  key | Pobranie częstotliwości dostępu do klucza |
 | **MEMORY USAGE** key | Pobranie zajętości pamięci przez klucz |
+| **DBSIZE** | Pobranie ilości kluczy w aktualnej bazie danych |
+| **CLIENT LIST** | Pobieranie listę wszystkich połączeń |
+| **CLIENT KILL** | Zamyka wybrane połączenie na podst. IP, ID, lub nazwie użytkownika |
+| **CLIENT SETNAME** connection-name | Ustawia nazwę połączenia |
+| **CLIENT GETNAME** | Pobranie nazwy połączenia |
+ 
  
 
 ### Konfiguracja
