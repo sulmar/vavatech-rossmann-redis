@@ -3,6 +3,23 @@
 
 ## Instalacja
 
+### Linux
+
+- Instalacja serwera Redis
+~~~ bash
+sudo apt-get install redis-server
+~~~
+
+~~~ bash
+- Sprawdzenie statusu 
+sudo systemctl status redis
+~~~
+
+- Podłączenie
+~~~ bash
+sudo redis-cli
+~~~
+
 ### Docker
 - Pobranie obrazu
 ~~~
@@ -67,4 +84,1260 @@ docker exec -it redis-tutorial-redis-1 redis-cli
 4. Zatrzymaj
 ~~~ bash
 docker-compose down
+~~~
+
+## Komendy
+
+### Połączenie
+
+| Komenda  | Opis   |
+|---|---|
+| **PING** [message] | Ping do serwera  |
+| **ECHO** message | Wyświetlenie komunikatu |
+| **AUTH** [username] password | Logowanie do serwera  |
+| **SELECT** index | Wybór bazy danych |
+| **SWAPDB** index index | Zamiana baz danych |
+| **QUIT** | Zamknięcie połączenia |
+
+### Diagnostyka
+| Komenda  | Opis   |
+|---|---|
+| **INFO** [section] | Wyświetlenie informacji |
+| **MONITOR** | Włączenie śledzenia |
+| **OBJECT FREQ**  key | Pobranie częstotliwości dostępu do klucza |
+| **MEMORY USAGE** key | Pobranie zajętości pamięci przez klucz |
+ 
+
+### Konfiguracja
+| Komenda  | Opis   |
+|---|---|
+| **CONFIG GET** parameter | Pobranie wartości parametru konfiguracji |
+| **CONFIG SET** parameter value | Ustawienie wartości parametru konfiguracji |
+| **CONFIG REWRITE** | Zapisanie konfiguracji w pamięci |
+
+
+### Podstawowe
+
+| Komenda  | Opis   |
+|---|---|
+| **RENAME** key newkey | Zmiana nazwy klucza |
+| **MOVE** key db | Przesunięcie klucza do innej bazy danych |
+| **EXISTS** key  | Sprawdzenie czy klucz istnieje |
+| **DEL** key  | Usunięcie klucza  |
+| **RANDOMKEY** | Pobranie losowego klucza |
+| **DUMP** key  | Pobranie serializowanej wartości klucza  |
+| **TYPE** key  | Pobranie typu klucza |
+| **EXPIRE** key seconds  | Ustawienie czasu wygaśnięcia klucza |
+| **EXPIREAT** key timestamp  | Ustawienie daty wygaśnięcia klucza |
+| **TTL** key | Pobranie pozostałego czasu do wygaśnięcia klucza w sekundach |
+| **PTTL** key | Pobranie pozostałego czasu do wygaśnięcia klucza w milisekundach 
+| **PERSIST** key | Wyłączenie wygasania klucza |
+| **KEYS** pattern | Pobranie wszystkich nazw kluczy według wzorca |
+| **SCAN** cursor [MATCH pattern] [COUNT count] [TYPE type] | Pobranie określonej ilości nazw kluczy na podstawie wzorca lub typu |
+
+### Strings
+
+| Komenda  | Opis   |
+|---|---|
+| **SET** key value | Ustawienie wartości klucza  |
+| **GET** key  | Pobranie wartości klucza |
+| **MSET** key1 value1 [key2 value2] | Ustawienie wielu wartości kluczy  |
+| **MGET** key1 [key2] | Pobranie wielu wartości kluczy  |
+| **GETRANGE** key start end  | Pobranie fragmentu wartości klucza |
+| **APPEND** key value | Dołączenie wartości do wartości klucza |
+| **STRLEN** key | Pobranie długości wartości klucza  |
+| **INCR** key | Zwiększenie wartości klucza o 1  |
+| **INCRBY** key increment | Zwiększenie wartości klucza o podaną wartość |
+| **INCRBYFLOAT** key increment | Zwiększenie wartości klucza o podaną wartość ułamkową |
+| **DECR** key | Zmniejszenie wartości klucza o 1 |
+| **DECRBY** key increment | Zmniejsze wartości klucza o podaną wartość |
+
+### Hashes
+
+| Komenda  | Opis   |
+|---|---|
+| **HSET** key field value | Ustawienie wartości pola danego klucza  |
+| **HMSET** key field value | Ustawienie wielu wartości pola danego klucza  |
+| **HGET** key field  | Pobranie wartości pola danego klucza |
+| **HMGET** key field [field ...] | Pobranie wartości wybranych pól danego klucza |
+| **HGETALL** key  | Pobranie wszystkich pól danego klucza |
+| **HKEYS** key  | Pobranie kluczy danego klucza |
+| **HVALS** key  | Pobranie wartości danego klucza |
+| **HINCRBY** key field increment  | Inkrementacja wartości pola |
+| **HEXISTS** key field | Sprawdzenie czy pole istnieje w danym kluczu |
+| **HDEL** key field | Usunięcie pola danego klucza |
+| **HSCAN** key cursor | Pobranie pól i wartości kluczy |
+| **HSTRLEN** key field | Pobranie długości wartości pola |
+
+### Sets
+
+| Komenda  | Opis   |
+|---|---|
+| **SADD** key member [member] | Dodanie elementu do zbioru  |
+| **SMEMBERS** key | Pobranie elementów ze zbioru |
+| **SCARD** key | Pobranie ilości elementów w zbiorze |
+| **SMOVE** source destination member | Przesunięcie elementu pomiędzy zbiorami |
+| **SISMEMBER** key member | Sprawdzenie czy wartość jest elementem zbioru |
+| **SREM** key member | Usunięcie elementu ze zbioru |
+| **SPOP** key [count] | Usunięcie i pobranie pojedyńczego lub większej ilości losowych elementów ze zbioru |
+| **SRANDMEMBER** key [count] | Pobranie pojedyńczego lub większej ilości losowych elementów ze zbioru |
+| **SUNION** key [key] | Suma zbiorów |
+| **SUNIONSTORE** destination key [key] | Suma zbiorów i zapisanie ich pod nowym kluczem |
+| **SINTER** key [key] | Część wspólna zbiorów |
+| **SINTERSTORE** desitination key [key] | Część wspólna zbiorów i zapisanie ich pod nowym kluczem |
+| **SDIFF** key [key] | Różnica zbiorów |
+| **SDIFFSTORE** desitination key [key] | Różnica zbiorów i zapisanie ich pod nowym kluczem |
+
+### Sorted Sets
+
+| Komenda  | Opis   |
+|---|---|
+| **ZADD** key score member | Dodanie elementu do zbioru  |
+| **ZREM** key member | Usunięcie elementu ze zbioru  |
+| **ZINCRBY** key increment member | Zwiększego wartości klucza w zbiorze  |
+| **ZSCORE** key member | Pobranie wyniku elementu ze zbioru  |
+| **ZSCAN** key cursor | Pobranie elementów ze zbioru |
+| **ZCARD** key | Pobranie ilości elementów ze zbioru |
+| **ZCOUNT** key min max | Pobranie ilości elementów ze zbioru, których wynik jest pomiędzy wartościami min i max |
+| **ZRANK** key member | Pobranie rankingu na podstawie wyniku od najniższej wartości |
+| **ZREVRANK** key member | Pobranie rankingu na podstawie wyniku od najwyższej wartości |
+| **ZRANGEBYSCORE** key min max [withscores] | Pobranie elementów w zakresie rankingu |
+
+### Lists
+
+| Komenda  | Opis   |
+|---|---|
+| **LPUSH** key value [value] | Dodanie elementu do listy od lewej strony (początek) |
+| **RPUSH** key value [value] | Dodanie elementu do listy od prawej strony (koniec) |
+| **LSET** key index element | Ustawienie wartości elementu na liście na podstawieniu pozycji |
+| **LINSERT** key BEFORE|AFTER pivot element | Wstawienie elementu do listy przed lub po wskazanym elementem na liście |
+| **LRANGE** key start stop  | Pobranie fragmentu elementów listy |
+| **LINDEX** key index | Pobranie elementu z listu na podstawie pozycji |
+| **LREM** key count value  | Usunięcie określonej ilości elementów z listy począwszy od podanej wartości |
+| **LPOP** key  | Pobranie i usunięcie elementu z listy od lewej strony (początek) |
+| **RPOP** key  | Pobranie i usunięcie elementu z listy od prawej strony (koniec)|
+| **RPOPLPUSH** key  | Przeniesienie elementu pomiędzy listami |
+| **LMOVE** source destination LEFT|RIGHT LEFT|RIGHT | Przesunięcie elementu pomiędzy listami |
+| **LLEN** key  | Pobranie ilości elementów listy |
+| **LTRIM** key start stop | Wycina fragment listy |
+
+
+### Geo
+
+| Komenda  | Opis   |
+|---|---|
+| **GEOADD** key longitude latitude member | Dodanie elementu o podanej pozycji do zbioru |
+| **GEOPOS** key member  | Pobranie pozycji elementu |
+| **GEOHASH** key member  | Pobranie pozycji elementu w formacie GeoHash |
+| **GEODIST** key member1 member2 [unit] ]| Obliczenie odległości pomiędzy elementami |
+| **GEOSEARCH** key ...   | Wyszukiwanie elementów w określonym obszarze |
+| **GEOSEARCHSTORE** key ...   | Wyszukiwanie elementów w określonym obszarze i zapisanie wyników do osobnego zbioru |
+| **GEORADIUS** key longitude latitude radius   | Wyszukiwanie elementów w określonym promieniu |
+| **GEORADIUSBYMEMBER** key member radius   | Wyszukiwanie elementów w określonym promieniu od podanego elementu |
+
+
+### Bitmaps
+
+| Komenda  | Opis   |
+|---|---|
+| **SETBIT** key offset value | Ustawienie bitu |
+| **GETBIT** key offset | Pobranie bitu |
+| **BITOP** operation destkey key | Wykonanie operacji bitowej na kluczach |
+| **BITCOUNT** key [start end] | Obliczenie ilości ustawionych bitów na 1 |
+| **BITPOS** key [start] [end] | Pobranie pozycji bitu ustawionego na 1 |
+
+
+### Transakcje
+
+| Komenda  | Opis   |
+|---|---|
+| **MULTI**  | Rozpoczęcie bloku transakcji |
+| **EXEC** | Wykonanie wszystkich komend |
+| **DISCARD** | Porzucenie wszystkich komend |
+| **WATCH** key [key] | Śledzenie zmian klucza |
+| **UNWATCH** | Zwolnienie śledzenie zmian klucza |
+
+
+### Pub/Sub
+
+| Komenda  | Opis   |
+|---|---|
+| **SUBSCRIBE** channel [channel ...] | Nasłuchiwanie komunikatów publikowanych do podanego kanału |
+| **PSUBSCRIBE** pattern [pattern] | Nasłuchiwanie komunikatów według wzorca |
+| **PUBLISH** channel message | Wysłanie komunikatu na kanał |
+| **UNSUBSCRIBE** [channel] | Zatrzymanie nasłuchiwania komunikatów |
+
+### Stream
+
+| Komenda  | Opis   |
+|---|---|
+| **XADD** key ID field string [field string...] | Pisanie do strumienia |
+| **XREAD** [count] STREAMS key ID | Czytanie ze strumienia |
+| **XLEN** key | Pobranie długości strumienia |
+
+### Cluster
+| Komenda  | Opis   |
+|---|---|
+| **CLUSTER SLOTS** | Wyświetlenie informacji o slotach  (przestarzałe)|
+| **CLUSTER SHARDS** | Wyświetlenie informacji o slotach |
+| **CLUSTER INFO** | Wyświetlenie informacji o działaniu klastra |
+| **CLUSTER KEYSLOT** key | Obliczenie funkcji hash dla klucza |
+
+
+### Skrypty
+| Komenda  | Opis   |
+|---|---|
+| **EVAL** script numkeys key [key ...] arg [arg ...] | Uruchomienie skryptu w języku Lua po stronie serwera |
+| **EVALSHA** sha1 numkeys key [key ...] arg [arg ...] | Uruchomienie wskazanego skryptu w pamięci po stronie serwera |
+| **SCRIPT LOAD** script | Załadowanie skryptu do pamięci |
+| **SCRIPT EXISTS** sha1 | Sprawdzenie czy skrypt jest w pamięci |
+| **SCRIPT KILL** | Zatrzymanie wykonywania aktualnie uruchomionego skryptu |
+| **SCRIPT FLUSH** | Usunięcie wszystkich skryptów z pamięci |
+| **SCRIPT DEBUG**  | Uruchomienie trybu śledzenia uruchamianych skryptów |
+
+
+## Praca
+
+
+
+### Podstawy
+- Uruchomienie klienta
+~~~
+> redis-cli
+~~~
+
+- Sprawdzenie czy serwer działa
+~~~
+PING
+~~~
+
+- Wyświetlenie komunikatu
+~~~ 
+ECHO 'Hello World'
+~~~
+
+- Wyczyszczenie konsoli
+~~~
+CLEAR
+~~~
+
+- Wyjście z konsoli
+~~~
+QUIT
+~~~
+
+- Włączenie śledzenia
+~~~
+MONITOR
+~~~
+
+- Wyświetlenie informacji o serwerze
+~~~
+INFO Server
+~~~
+
+### Strings
+
+#### Opis
+Klucz może przechowywać tylko jedną wartość.
+
+- do 2^32 bitów (512MB) na każdy klucz
+- zastosowania
+    - czysty tekst (np. przechowywanie strony www)
+    - wartości numeryczne (np. ilość zgromadzonych punktów)    
+    - surowe bity/flagi (dzienna aktywność użytkowników)
+    - zawartość binarnych plików (PDF, obrazy)
+    - obiekty json
+
+#### Podstawowe operacje
+
+- Ustawienie wartości klucza (tekst)
+~~~
+SET message "Hello World"
+GET message
+~~~
+
+- Sprawdzenie czy klucz istnieje
+~~~
+EXISTS message
+~~~
+
+- Usunięcie klucza
+~~~
+DEL message
+~~~
+
+- Usunięcie klucza bez blokowania
+~~~
+UNLINK message
+~~~
+Komenda odpina klucz z przestrzeni roboczej. Faktyczne usunięcie nastąpi później asynchronicznie (w osobnym wątku).
+
+- Ustawienie wartości klucza (liczba całkowita)
+~~~
+SET points 100
+GET points
+~~~
+
+- Inkrementacja wartości
+~~~
+INCR points
+GET points
+~~~
+
+- Dekrementacja wartości
+~~~
+DECR points
+GET points
+~~~
+
+- Inkrementacja wartości o podaną wartość
+~~~
+INCRBY points 10
+GET points
+~~~
+
+- Dekrementacja wartości o podaną wartość
+~~~
+DECRBY points 10
+GET points
+~~~
+
+- Ustawienie wartości klucza (liczba rzeczywista)
+~~~
+SET temp 21.45
+GET temp
+~~~
+
+- Inkrementacja liczby rzeczywistej
+~~~
+SET temp 21.45
+INCRBYFLOAT room1:temp 0.5
+~~~
+
+- Dekrementacja liczby rzeczywistej
+~~~
+INCRBYFLOAT room1:temp -0.25
+~~~
+
+- Konwencja nazewnictwa kluczy (przestrzeń nazw)
+~~~
+SET server:name server1
+GET server:name
+SET server:port 5000
+GET server:port
+~~~
+
+- Ustawienie wartości wielu kluczom
+~~~ 
+MSET key1 "Hello" key2 "World"
+~~~
+
+- Pobranie wartości wielu kluczy
+~~~
+MGET key1 key2
+~~~
+
+- Dodanie wartości do klucza
+~~~
+SET message "Hello, "
+APPEND message " World!"
+~~~
+
+- Pobranie zakresu wartości
+~~~
+GETRANGE message 0 4
+GETRANGE message 6 10
+~~~
+
+- Zmiana nazwy klucza
+~~~
+RENAME message greeting
+~~~
+
+#### Klucze tymczasowe
+
+- Ustawienie wartości klucza tymczasowego
+~~~
+SET token "ABC123" EX 60
+TTL token
+~~~
+
+- Ustawienie wartości klucza tymczasowego (składnia skrócona)
+~~~
+SETEX token 60 "ABC123"
+TTL token
+~~~
+
+- Ustawienie klucza tymczasowego, który wygaśnie o dokładnie podanej dacie i godzinie.
+~~~
+SET ticket "redis"
+EXPIREAT ticket 1573041600
+TTL ticket
+~~~
+Czas podawany jest w formacie Unix timestamp (ilość sekund od 1970-01-01)
+Wskazówka: skorzystaj z konwertera https://www.epochconverter.com/
+
+
+- Ustawienie wygaśnięcia klucza
+~~~
+SET greeting "Hello World"
+EXPIRE greeting 60
+TTL greeting
+~~~
+
+- Utrwalenie tymczasowego klucza
+~~~
+PERSIST greeting
+TTL greeting
+~~~
+
+### Hash
+
+#### Opis
+Tablice asocjacyjne. Klucz może przechowywać wiele wartości w poszczególnych polach.
+
+#### Podstawowe operacje
+
+Jeśli chcesz zmodyfikować cały obiekt zwykły string wystarczy:
+~~~
+SET user:marcin { 'name':'Marcin Sulecki', 'email': 'marcin.sulecki@gmail.com'}
+~~~
+
+Natomiast w przypadku, gdy chcesz mieć dostęp do pojedynczych pól lepszym rozwiązaniem będą tablice asosjacyjne
+
+- Dodanie wartości
+~~~
+HSET user1 firstname John
+HSET user1 lastname Smith
+HSET user1 email john.smith@domain.com
+HSET user1 points 10
+~~~
+
+- Dodanie wielu wartości
+~~~
+HMSET user2 firstname "Bob" lastname "Smith" email bob@domain.com phone 555-123-123
+~~~
+
+- Pobranie wybranego pola
+~~~
+HGET user1 firstname
+HGET user1 lastname
+~~~
+
+- Pobranie wartości wielu pól
+~~~
+HMGET user1 firstname lastname
+~~~
+
+- Pobranie wszystkich pól
+~~~
+HKEYS user1
+~~~
+
+- Pobranie wszystkich wartości
+~~~
+HVALS user1
+~~~
+
+- Pobranie wszystkich pól i wartości
+~~~
+HGETALL user1
+~~~
+
+- Inkrementacja wybranego pola
+~~~
+HINCRBY user1 points 5
+~~~
+
+- Usunięcie wybranego pola
+~~~
+HDEL user1 phone
+~~~
+
+
+### Lists
+
+#### Opis
+- Do 2^32 elementów w każdym kluczu
+- zastosowania
+    - kolejka
+    - stos    
+    - ostatnie wiadomości
+
+#### Podstawowe operacje
+- Wstawienie elementów na początek listy
+~~~
+LPUSH people "John"
+LPUSH people "Tom"
+LPUSH people "Jenny"
+~~~
+
+- Pobranie wszystkich elementów
+~~~
+ LRANGE people 0 -1
+~~~
+
+
+- Pobranie zakresu elementów
+~~~
+ LRANGE people 1 2
+~~~
+
+- Pobranie elementu z listy o podanym indeksie
+~~~
+LINDEX people 2
+~~~
+
+- Ustawienie wartości pod podanym indeksem
+~~~
+LSET people 1 Jerry
+~~~
+
+- Wstawienie elementów na koniec listy
+~~~
+RPUSH people Harry
+~~~
+
+- Pobranie ilości elementów listy
+~~~
+LLEN people
+~~~
+
+- Pobranie i usunięcie elementu z góry
+~~~
+LPOP people
+~~~
+
+- Pobranie i usunięcie elementu z dołu
+~~~
+RPOP people 
+~~~
+
+- Wstawienie elementu do listy
+~~~
+LINSERT people BEFORE "John" "Kate"
+~~~
+
+Usunięcie określonej ilości elementów z listy począwszy od podanej wartości
+~~~
+LREM people 2 John 
+~~~
+
+- Przesunięcie elementu pomiędzy listami
+~~~
+LPUSH sent "order-1"
+LPUSH sent "order-2"
+LPUSH sent "order-3"
+RPOPLPUSH ordered delivered
+~~~
+
+### Sets
+
+#### Opis
+Nieuporządkowany zbiór **unikalnych** elementów.
+
+- Do 2^32 elementów w każdym kluczu
+- zastosowania
+    - przechowywanie relacji (znajomi, followers)
+    - unikalni odwiedzający stronę www    
+
+#### Podstawowe operacje
+
+- Dodanie elementów do zbioru
+~~~ 
+SADD members John
+SADD members Bob
+SADD members Ann
+~~~
+
+- Pobranie elementów ze zbioru
+~~~
+SMEMBERS members
+~~~
+
+- Pobranie ilości elementów
+~~~
+SCARD members
+~~~
+
+- Przesunięcie elementu pomiędzy zbiorami
+~~~
+SADD online user1 user2 user3
+SADD offline user4 user5
+SMOVE online offline user1
+~~~
+
+- Sprawdzenie czy wartość jest elementem zbioru
+~~~
+SISMEMBER online user2
+~~~
+
+- Usunięcie elementu ze zbioru
+~~~
+SREM online user1
+~~~
+
+- Pobranie losowego elementu ze zbioru 
+~~~
+SADD users user1 user2 user3 user4 user5 
+SRANDMEMBER users
+~~~
+
+- Pobranie i usunięcie losowego elementu ze zbioru 
+~~~
+SPOP users
+~~~
+
+#### Operacje na zbiorach
+
+- Suma zbiorów
+~~~
+SUNION online offline
+~~~
+
+- Suma zbiorów i zapisanie ich pod nowym kluczem
+~~~
+SUNIONSTORE all online offline
+~~~
+
+- Część wspólna zbiorów
+~~~
+SADD warszawa company1 company2 company3 company4
+SADD bydgoszcz company2 company3 company5 
+SINTER warszawa bydgoszcz
+~~~
+
+- Część wspólna zbiorów i zapisanie ich pod nowym kluczem
+~~~
+SINTERSTORE common online offline
+~~~
+
+-- Różnica zbiorów
+~~~
+SDIFF warszawa bydgoszcz
+~~~
+
+-- Różnica zbiorów i zapisanie ich pod nowym kluczem
+~~~
+SDIFFSTORE diff online offline
+~~~
+
+
+### Sorted Sets
+
+#### Opis
+- Uporządkowane zbiory elementów. Każdemu elementowi można przypisać wagę (score).
+
+- Do 2^32 elementów w każdym kluczu
+- zastosowania
+    - listy rankingowe
+    - wyszukiwarki
+
+#### Podstawowe operacje
+
+Dodanie elementów
+~~~
+ZADD skills:john 100 redis
+ZADD skills:john 99 sql
+ZADD skills:john 94 nosql
+ZADD skills:john 70 csharp
+ZADD skills:john 30 javascript
+ZADD skills:john 1 python
+ZADD skills:john -10 basic
+~~~
+
+- Pobranie ilości elementów
+~~~
+ZCARD skills:john 
+~~~
+
+- Pobranie rankingu podanego klucza 
+~~~
+ZSCORE skills:john redis
+~~~
+
+- Pobranie elementów wg rankingu
+~~~
+ZRANGEBYSCORE skills:john 50 100
+~~~
+
+- Przedział lewostronnie otwarty (wartości > 1 i <=100)
+~~~
+ZRANGEBYSCORE skills:john (1 100
+~~~
+
+- Przedział prawostronnie otwarty (wartości >= 1 i <100)
+~~~
+ZRANGEBYSCORE skills:john 1 (100
+~~~
+
+- Przedział lewostronnie i prawostronnie otwarty (wartości > 1 i <100)
+~~~
+ZRANGEBYSCORE skills:john (1 (100
+~~~
+
+- Przedział od minus nieskończoności do 100
+~~~
+ZRANGEBYSCORE skills:john -inf 100
+~~~
+
+- Dodawanie wartości nieskończonych
+~~~
+ZADD skills:john -inf birds
+ZADD skills:john +inf football
+ZRANGEBYSCORE skills:john -inf +inf
+ZRANGEBYSCORE skills:john (-inf (+inf
+~~~
+
+- Przedział od minus nieskończoności do plus nieskończoności
+~~~
+ZRANGEBYSCORE skills:john -inf +inf
+~~~
+
+- Zwiększenie rankingu 
+~~~ 
+ZINCRBY skills:john 1 nosql  
+~~~
+
+ Usunięcie elementu ze zbioru
+~~~
+ZREM skills:john javascript
+~~~
+
+### Bitmaps
+
+#### Opis 
+String, który może być przetwarzany za pomocą operacji bitowych.
+
+
+#### Podstawowe operacje
+
+- Ustawienie wartość bitu na określonej pozycji
+~~~
+SETBIT article1:today 5 1
+SETBIT article2:today 5 1
+SETBIT article2:today 3 1
+SETBIT article2:today 2 1
+SETBIT article1:today 2 1
+~~~
+
+Pobranie bitu
+~~~
+GETBIT article1:today 5
+~~~
+
+Operacja AND
+~~~
+BITOP AND readbotharticles article1:today article2:today
+GETBIT readbotharticles 2
+GETBIT readbotharticles 3
+GETBIT readbotharticles 5
+~~~
+
+Operacja OR
+~~~
+BITOP OR readanyarticle article1:today article2:today
+GETBIT readanyarticle 2
+GETBIT readanyarticle 3
+GETBIT readanyarticle 5
+~~~
+
+Obliczenie ilości ustawionych bitów na 1
+~~~
+BITCOUNT readbotharticles
+~~~
+
+
+### Geo
+
+#### Opis 
+- Uporządkowane zbiory elementów. Każdemu elementowi można przypisać pozycję (długość i szerokość geograficzną). Geo oparty jest o _Sorted List_.
+
+
+#### Podstawowe operacje
+- Dodanie pozycji
+~~~
+GEOADD vehicles 52.361389 19.115556 Vehicle1
+GEOADD vehicles 52.361389 19.115556 Vehicle2
+GEOADD vehicles 52.361389 19.115556 Vehicle3
+GEOADD vehicles 52.361389 19.115556 Vehicle4
+~~~
+
+- Pobranie pozycji określonego klucza
+~~~
+GEOPOS vehicles Vehicle2
+~~~
+
+- Obliczenie dystansu pomiędzy dwoma pozycjami
+~~~ 
+GEODIST vehicles Vehicle1 Vehicle4 km
+~~~
+
+- Wyszukanie pozycji w określonym promieniu
+~~~
+GEORADIUS vehicles 0 0 200 km
+~~~
+
+- Usunięcie elementu ze zbioru
+~~~
+ZREM vehicles Vehicle2
+~~~
+
+### Pub/Sub
+
+#### Opis
+Mechanizm umożliwiający realizację wzorca publish-consument. Zamiast klucza jest kanał (channel). 
+Klienci wysyłają wiadomości na określony kanał a odbiorcy otrzymują te wiadomości.
+
+- Utworzenie subskrypcji
+~~~
+SUBSCRIBE sensors:kitchen:temp
+~~~
+
+- Wysłanie wiadomości
+~~~
+PUBLISH sensors:kitchen:temp 21.01
+PUBLISH sensors:bathroom:temp 22.50
+PUBLISH sensors:kitchen:temp 20.01
+PUBLISH sensors:bathroom:humadity 99
+~~~
+
+Odbiorca będzie otrzymywać tylko wiadomości o temperaturze w kuchni zgodnie z szablonem _sensors:kitchen:temp_
+
+Utworzenie subskrypcji z użyciem wzorca
+~~~
+PSUBSCRIBE sensors:*:temp
+~~~
+
+Odbiorca będzie otrzymywać wiadomości o temperaturze ze wszystkich pomieszczeń, zgodnie z szablonem _sensors:*:temp_.
+
+~~~
+? - pojedynczy znak
+* - dowolny ilość znaków
+[ae] - zbiór znaków
+~~~
+
+Utworzenie subskrypcji z użyciem wzorca
+~~~
+PSUBSCRIBE sensors:room?:temp
+~~~
+
+- Wysłanie wiadomości
+~~~
+PUBLISH sensors:kitchen:temp 21.01
+PUBLISH sensors:room1:temp 22.50
+PUBLISH sensors:room2:temp 20.01
+PUBLISH sensors:bathroom:humadity 99
+~~~
+
+Odbiorca będzie otrzymywać wiadomości o temperaturze ze wszystkich pokoi, zgodnie z szablonem _sensors:room?:temp_.
+
+
+- Usunięcie subskrypcji
+~~~
+UNSUBSCRIBE
+~~~
+
+### Streams
+
+#### Opis
+Strumienie umożliwiają zapisywanie do zbioru informacji i równoczesne odczytywanie tych informacji.
+
+#### Podstawowe operacje
+
+- Pisanie do strumienia
+~~~
+XADD events * user john action login
+XADD events * user john action visit page index.htm
+XADD events * user john action purchase item computer
+XADD events * user john action purchase item monitor
+XADD events * user john action paid amount 1000
+~~~
+
+- Czytanie ze strumienia 
+~~~
+XREAD count 2 streams events 0
+XREAD count 2 streams events 1572983745546-0
+~~~
+
+
+## Backup
+
+- Backup wybranej bazy danych na dysku (snapshoth)
+~~~
+SAVE
+~~~
+Powstanie plik _var/libs/redis/dump.rdb_
+SAVE uruchamiany jest synchronicznie i blokuje połączenia klientów. Niezalecany na środowisku produkcyjnym. Zamiast tego użyj BGSAVE
+
+- Backup asynchroniczny
+~~~
+BGSAVE
+~~~
+Umożliwia dodawanie i modyfikacje danych podczas tej operacji, ale ich zmiany nie będą zapisane w tej migawce.
+
+- Backup automatyczny
+~~~
+SAVE 60 1
+~~~
+
+Oznacza, że backup będzie tworzony co 60 sekund jeśli przynajmniej jeden klucz został zmieniony.
+
+- Pobranie katalogu w którym znajduje się backup
+~~~
+CONFIG GET dir
+~~~
+
+## Autoryzacja
+
+- Ustawienie hasła dla użytkownika domyślnego (default)
+~~~
+CONFIG SET requirepass P@ssw0rd
+~~~
+
+- Autoryzacja
+~~~
+AUTH P@ssw0rd
+~~~
+
+- Usunięcie hasła
+~~~
+CONFIG SET requirepass ""
+~~~
+
+- Sprawdzenie kim jestem
+~~~
+ACL WHOAMI
+~~~
+
+ Utworzenie nowego użytkownika
+~~~
+ACL SETUSER alice
+~~~
+
+- Dodanie hasła do użytkownika
+~~~
+ACL SETUSER alice on >P@ssw0rd
+~~~
+
+- Dodanie uprawnień do użytkownika
+~~~
+ACL SETUSER alice +get +set
+~~~
+
+## Masowe wstawianie danych
+
+- Pobranie danych
+~~~ bash
+curl http://antirez.com/misc/female-names.txt --output female-names.txt
+~~~
+
+- Dostosowanie pliku
+~~~ bash
+sed 's/^/SADD members /' female-names.txt  > names.txt
+~~~
+
+
+- Skopiowanie pliku do obrazu Dockera
+~~~ bash
+docker cp names.txt my-redis:/data/names.txt
+~~~
+
+- Import danych z pliku do Redisa
+~~~ bash
+cat names.txt | redis-cli --pipe
+~~~
+
+## Transakcje
+
+### Zatwierdzenie transakcji
+
+Scenariusz: _John wykonuje przelew dla Jeny_
+
+~~~
+MSET john:debet 100 jeny:debet 100
+MULTI
+DECRBY john:debet 40
+INCRBY jeny:debet 40
+EXEC 
+~~~
+
+Polecenie **MULTI** powoduje, że wszystkie operacje od tego momentu są kolejkowane. Dopiero operacja **EXEC** je faktycznie wykonuje.
+
+### Wycofanie transakcji
+
+Scenariusz: _Jeny zwraca pieniądze Johnemu, ale rozmyśla się._
+
+~~~
+MSET jeny:debet 100 john:debet 100 
+MULTI
+DECRBY john:debet 40
+INCRBY jeny:debet 40
+DISCARD 
+~~~
+
+Polecenie **MULTI** powoduje, że wszystkie operacje od tego momentu są kolejkowane. Dopiero operacja **DISCARD** czyści kolejkę operacji.
+
+### Śledzenie zmian klucza
+
+Scenariusz: _John wykonuje przelew dla Jeny_ ale w międzyczasie inny użytkownik modyfikuje stan konta Johna
+
+1. Użytkownik nr 1 zaczyna wprowadzać zmiany:
+~~~
+MULTI
+WATCH john:debet
+DECRBY john:debet 40
+INCRBY jeny:debet 40
+~~~
+
+2. Użytkownik nr 2 modyfikuje w międzyczasie wartość klucza:
+~~~
+INCRBY john:debet 50
+~~~
+
+3. Użytkownik nr 1 zatwierdza transakcję
+~~~
+EXEC 
+~~~
+
+W przypadku gdy w ktoś w międzyczasie zmienił zawartość obserwowanego klucza, transakcja zostaje wycofana.
+
+
+## Skrypty
+
+- Wykonane wyrażenia
+~~~ lua
+EVAL "return redis.call('set','foo', 'Hello')" 0
+EVAL "return redis.call('get','foo')" 0 
+~~~
+
+Ostatni parametr określa ilość parametrów. W przypadku gdy nie przekazujemy żadnych parametrów należy go ustawić na wartość 0.
+
+- Przekazanie parametru
+
+Parametry skryptu podzielone są na 2 grupy: **KEYS** klucze i **ARGV** argumenty. Przed nimi należy podać ilość parametrów.
+Parametry indeksowane są od 1.
+
+**Uwaga** Tablice w języku LUA rozpoczynają się od 1.
+
+~~~ lua
+EVAL "return redis.call('set',KEYS[1], ARGV[1])" 1 message Hello
+~~~
+
+~~~ lua
+EVAL "return redis.call('get',KEYS[1])" 1 foo 
+~~~
+
+- Wykonanie skryptu z pliku 
+
+_hello.lua_
+
+~~~ lua
+local msg = "Hello, world!"
+return msg
+~~~
+
+~~~ bash
+redis-cli --EVAL hello.lua
+~~~
+
+
+- Załadowanie skryptu do pamięci
+~~~ 
+SCRIPT LOAD "return redis.call('set',KEYS[1], ARGV[1])"
+~~~
+
+Operacja zwróci SHA.
+
+- Wykonanie skryptu
+~~~
+EVALSHA {sha} 1 message "Hello World"
+~~~
+
+- Załadowanie skryptu z pliku
+~~~ bash
+redis-cli -x SCRIPT LOAD < hello.lua
+~~~
+
+- Przerywanie skryptu
+~~~ lua
+while(true)
+do
+end
+return 0
+~~~
+
+~~~ bash
+SCRIPT KILL
+~~~
+
+- Wstawianie danych
+_create-users.lua_
+~~~ lua
+for i=1,10000 do redis.call('SADD', 'users', "user:"..i) end
+return 0
+~~~
+
+- Wykonanie skryptu
+~~~
+EVALSHA {sha} 1 count 1000
+~~~
+
+
+
+## Cluster
+
+### Linux
+
+
+1. Utwórz plik konfiguracyjny
+~~~ bash
+vim redis.conf        
+~~~
+
+_redis.conf_
+~~~ 
+port 7000
+cluster-enabled yes
+cluster-config-file nodes.conf
+cluster-node-timeout 5000
+appendonly yes
+~~~
+
+
+2. Utwórz podkatalogi
+~~~ bash
+mkdir 7000 7001 7002 7003 7004 7005 7006 7007
+~~~
+
+3. Skopiuj pliki konfiguracyjny do poszczególnych katalogów
+~~~ bash
+cp redis.conf 7000/redis.conf                                   
+...
+cp redis.conf 7007/redis.conf                                   
+~~~
+                         
+3. Zmień porty w poszczególnych plikach redis.conf
+~~~ bash
+vim 7000/redis.conf
+...
+vim 7007/redis.conf
+~~~
+
+4. Uruchom serwery
+~~~ bash
+cd 7000
+redis-server ./redis.conf  
+...
+cd 7007
+redis-server ./redis.conf  
+~~~
+
+5. Utwórz klaster
+~~~ bash
+redis-cli --cluster create 127.0.0.1:7000 127.0.0.1:7001 \
+127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 127.0.0.1:7006 127.0.0.1:7007 --cluster-replicas 1
+~~~
+
+6. Połącz się do jednego z wezłów master
+~~~ bash
+redis-cli -p 7000 -c   
+~~~
+
+7. Dodaj klucze
+~~~ 
+SET foo Hello
+SET boo World
+~~~
+
+Możesz zauważyć, że klucze zapisywane są w różnych slotach.
+
+- informacje o slotach (przestarzałe): 
+~~~
+CLUSTER SLOTS 
+~~~
+
+- informacje o slotach (od wersji 7.0)
+~~~
+CLUSTER SHARDS 
+~~~
+
+- informacje o działaniu klastra
+~~~
+CLUSTER INFO
+~~~
+
+- Obliczenie funkcji hash dla klucza o podanej nazwie
+~~~
+CLUSTER KEYSLOT foo
+~~~
+
+(klucz nie musi istnieć)
+
+### Problemy (błąd CROSSSLOT)
+
+
+
+#### Scenariusz 1
+
+- Przykład
+~~~
+SADD user:512:following user:123 user:321 user:132
+CLUSTER KEYSLOT user:512:following 
+SADD user:512:followed_by user:123 user:132 
+CLUSTER KEYSLOT user:512:followed_by
+~~~
+
+- Problem
+~~~
+SINTER user:512:following user:512:followed_by
+~~~
+_(error) CROSSSLOT Keys in request don't hash to the same slot_
+
+- Przyczyna
+Klucze znajdują się w innych slotach.
+
+- Rozwiązanie
+~~~
+SADD user:{512}:following user:123 user:321 user:132
+CLUSTER KEYSLOT user:{512}:following 
+~~~
+
+{...} - oznacza, że tylko dla tej części klucza ma być obliczony hash, dzięki temu pozostała część nazwy klucza nie ma znaczenia
+
+~~~
+SADD user:{512}:followed_by user:123 user:132
+CLUSTER KEYSLOT user:{512}:followed_by
+~~~
+
+- Sprawdzenie
+~~~
+SINTER user:{512}:following user:{512}:followed_by
+~~~ 
+
+#### Scenariusz 2
+
+- Przykład
+~~~ 
+SET foo Hello
+SET boo World
+~~~ 
+
+- Problem
+~~~
+MGET foo boo
+~~~
+
+_(error) CROSSSLOT Keys in request don't hash to the same slot_
+
+- Rozwiązanie
+~~~
+CLUSTER KEYSLOT foo
+CLUSTER KEYSLOT boo
+CLUSTER KEYSLOT f{oo}
+CLUSTER KEYSLOT b{oo}
+SET f{oo} Hello
+SET b{oo} World
+MGET f{oo} b{oo}
 ~~~
