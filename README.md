@@ -201,13 +201,18 @@ docker-compose down
 |---|---|
 | **LPUSH** key value [value] | Dodanie elementu do listy od lewej strony (początek) |
 | **RPUSH** key value [value] | Dodanie elementu do listy od prawej strony (koniec) |
+| **LSET** key index element | Ustawienie wartości elementu na liście na podstawieniu pozycji |
+| **LINSERT** key BEFORE|AFTER pivot element | Wstawienie elementu do listy przed lub po wskazanym elementem na liście |
 | **LRANGE** key start stop  | Pobranie fragmentu elementów listy |
+| **LINDEX** key index | Pobranie elementu z listu na podstawie pozycji |
 | **LREM** key count value  | Usunięcie określonej ilości elementów z listy począwszy od podanej wartości |
 | **LPOP** key  | Pobranie i usunięcie elementu z listy od lewej strony (początek) |
 | **RPOP** key  | Pobranie i usunięcie elementu z listy od prawej strony (koniec)|
 | **RPOPLPUSH** key  | Przeniesienie elementu pomiędzy listami |
+| **LMOVE** source destination LEFT|RIGHT LEFT|RIGHT | Przesunięcie elementu pomiędzy listami |
 | **LLEN** key  | Pobranie ilości elementów listy |
 | **LTRIM** key start stop | Wycina fragment listy |
+
 
 ### Geo
 
