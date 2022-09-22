@@ -678,7 +678,8 @@ ZADD skills:john 99 sql
 ZADD skills:john 94 nosql
 ZADD skills:john 70 csharp
 ZADD skills:john 30 javascript
-ZADD skills:john 2 python
+ZADD skills:john 1 python
+ZADD skills:john -10 basic
 ~~~
 
 - Pobranie ilości elementów
@@ -696,6 +697,39 @@ ZSCORE skills:john redis
 ZRANGEBYSCORE skills:john 50 100
 ~~~
 
+- Przedział lewostronnie otwarty (wartości > 1 i <=100)
+~~~
+ZRANGEBYSCORE skills:john (1 100
+~~~
+
+- Przedział prawostronnie otwarty (wartości >= 1 i <100)
+~~~
+ZRANGEBYSCORE skills:john 1 (100
+~~~
+
+- Przedział lewostronnie i prawostronnie otwarty (wartości > 1 i <100)
+~~~
+ZRANGEBYSCORE skills:john (1 (100
+~~~
+
+- Przedział od minus nieskończoności do 100
+~~~
+ZRANGEBYSCORE skills:john -inf 100
+~~~
+
+- Dodawanie wartości nieskończonych
+~~~
+ZADD skills:john -inf birds
+ZADD skills:john +inf football
+ZRANGEBYSCORE skills:john -inf +inf
+ZRANGEBYSCORE skills:john (-inf (+inf
+~~~
+
+- Przedział od minus nieskończoności do plus nieskończoności
+~~~
+ZRANGEBYSCORE skills:john -inf +inf
+~~~
+
 - Zwiększenie rankingu 
 ~~~ 
 ZINCRBY skills:john 1 nosql  
@@ -703,13 +737,8 @@ ZINCRBY skills:john 1 nosql
 
  Usunięcie elementu ze zbioru
 ~~~
-ZREM skills:john python
+ZREM skills:john javascript
 ~~~
-
-
-
-
-
 
 
 ## Autoryzacja
