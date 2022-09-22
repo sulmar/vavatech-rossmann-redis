@@ -333,6 +333,29 @@ ACL SETUSER alice on >P@ssw0rd
 ACL SETUSER alice +get +set
 ~~~
 
+## Masowe wstawianie danych
+
+- Pobranie danych
+~~~ bash
+curl http://antirez.com/misc/female-names.txt --output female-names.txt
+~~~
+
+- Dostosowanie pliku
+~~~ bash
+sed 's/^/SADD members /' female-names.txt  > names.txt
+~~~
+
+
+- Skopiowanie pliku do obrazu Dockera
+~~~ bash
+docker cp names.txt my-redis:/data/names.txt
+~~~
+
+- Import danych z pliku do Redisa
+~~~ bash
+cat names.txt | redis-cli --pipe
+~~~
+
 ## Transakcje
 
 ### Zatwierdzenie transakcji
