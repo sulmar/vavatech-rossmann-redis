@@ -284,6 +284,18 @@ docker-compose down
 | **CLUSTER KEYSLOT** key | Obliczenie funkcji hash dla klucza |
 
 
+### Skrypty
+| Komenda  | Opis   |
+|---|---|
+| **EVAL** script numkeys key [key ...] arg [arg ...] | Uruchomienie skryptu w języku Lua po stronie serwera |
+| **EVALSHA** sha1 numkeys key [key ...] arg [arg ...] | Uruchomienie wskazanego skryptu w pamięci po stronie serwera |
+| **SCRIPT LOAD** script | Załadowanie skryptu do pamięci |
+| **SCRIPT EXISTS** sha1 | Sprawdzenie czy skrypt jest w pamięci |
+| **SCRIPT KILL** | Zatrzymanie wykonywania aktualnie uruchomionego skryptu |
+| **SCRIPT FLUSH** | Usunięcie wszystkich skryptów z pamięci |
+| **SCRIPT DEBUG**  | Uruchomienie trybu śledzenia uruchamianych skryptów |
+
+
 ## Transakcje
 
 ### Zatwierdzenie transakcji
