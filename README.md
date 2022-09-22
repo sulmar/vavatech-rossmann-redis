@@ -103,6 +103,7 @@ docker-compose down
 | Komenda  | Opis   |
 |---|---|
 | **INFO** [section] | Wyświetlenie informacji |
+| **MONITOR** | Włączenie śledzenia |
 
 
 ### Podstawowe
