@@ -989,6 +989,23 @@ Oznacza, że backup będzie tworzony co 60 sekund jeśli przynajmniej jeden kluc
 CONFIG GET dir
 ~~~
 
+- Pobranie czasu ostatniego backupu w formacie unix
+~~~
+LASTSAVE
+~~~
+
+- blokuje wszystkie połączenia, zapisuje dane (SAVE) i wyłącza serwer
+~~~
+SHUTDOWN
+~~~
+
+- Pobranie czasu serwera w formie listy dwuelementowej (czas unix i liczbę mikrosekund)
+~~~
+TIME
+~~~
+
+
+
 ## Autoryzacja
 
 - Ustawienie hasła dla użytkownika domyślnego (default)
