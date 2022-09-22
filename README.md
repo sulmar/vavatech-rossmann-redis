@@ -85,3 +85,179 @@ docker exec -it redis-tutorial-redis-1 redis-cli
 ~~~ bash
 docker-compose down
 ~~~
+
+## Komendy
+
+### Połączenie
+
+| Komenda  | Opis   |
+|---|---|
+| **PING** [message] | Ping do serwera  |
+| **ECHO** message | Wyświetlenie komunikatu |
+| **AUTH** [username] password | Logowanie do serwera  |
+| **SELECT** index | Wybór bazy danych |
+| **SWAPDB** index index | Zamiana baz danych |
+| **QUIT** | Zamknięcie połączenia |
+
+### Diagnostyka
+| **INFO** [section] | Wyświetlenie informacji |
+
+
+### Podstawowe
+
+| Komenda  | Opis   |
+|---|---|
+| **RENAME** key newkey | Zmiana nazwy klucza |
+| **MOVE** key db | Przesunięcie klucza do innej bazy danych |
+| **EXISTS** key  | Sprawdzenie czy klucz istnieje |
+| **DEL** key  | Usunięcie klucza  |
+| **RANDOMKEY** | Pobranie losowego klucza |
+| **DUMP** key  | Pobranie serializowanej wartości klucza  |
+| **TYPE** key  | Pobranie typu klucza |
+
+| **EXPIRE** key seconds  | Ustawienie czasu wygaśnięcia klucza |
+| **EXPIREAT** key timestamp  | Ustawienie daty wygaśnięcia klucza |
+| **TTL** key | Pobranie pozostałego czasu do wygaśnięcia klucza w sekundach |
+| **PTTL** key | Pobranie pozostałego czasu do wygaśnięcia klucza w milisekundach 
+| **PERSIST** key | Wyłączenie wygasania klucza |
+
+| **KEYS** pattern | Pobranie wszystkich nazw kluczy według wzorca |
+| **SCAN** cursor [MATCH pattern] [COUNT count] [TYPE type] | Pobranie określonej ilości nazw kluczy na podstawie wzorca lub typu |
+
+### Strings
+
+| Komenda  | Opis   |
+|---|---|
+| **SET** key value | Ustawienie wartości klucza  |
+| **GET** key  | Pobranie wartości klucza |
+| **MSET** key1 value1 [key2 value2] | Ustawienie wielu wartości kluczy  |
+| **MGET** key1 [key2] | Pobranie wielu wartości kluczy  |
+| **GETRANGE** key start end  | Pobranie fragmentu wartości klucza |
+| **APPEND** key value | Dołączenie wartości do wartości klucza |
+| **STRLEN** key | Pobranie długości wartości klucza  |
+| **INCR** key | Zwiększenie wartości klucza o 1  |
+| **INCRBY** key increment | Zwiększenie wartości klucza o podaną wartość |
+| **INCRBYFLOAT** key increment | Zwiększenie wartości klucza o podaną wartość ułamkową |
+| **DECR** key | Zmniejszenie wartości klucza o 1 |
+| **DECRBY** key increment | Zmniejsze wartości klucza o podaną wartość |
+
+### Hashes
+
+| Komenda  | Opis   |
+|---|---|
+| **HSET** key field value | Ustawienie wartości pola danego klucza  |
+| **HMSET** key field value | Ustawienie wielu wartości pola danego klucza  |
+| **HGET** key field  | Pobranie wartości pola danego klucza |
+| **HMGET** key field [field ...] | Pobranie wartości wybranych pól danego klucza |
+| **HGETALL** key  | Pobranie wszystkich pól danego klucza |
+| **HKEYS** key  | Pobranie kluczy danego klucza |
+| **HVALS** key  | Pobranie wartości danego klucza |
+| **HINCRBY** key field increment  | Inkrementacja wartości pola |
+| **HEXISTS** key field | Sprawdzenie czy pole istnieje w danym kluczu |
+| **HDEL** key field | Usunięcie pola danego klucza |
+| **HSCAN** key cursor | Pobranie pól i wartości kluczy |
+| **HSTRLEN** key field | Pobranie długości wartości pola |
+
+### Sets
+
+| Komenda  | Opis   |
+|---|---|
+| **SADD** key member [member] | Dodanie elementu do zbioru  |
+| **SMEMBERS** key | Pobranie elementów ze zbioru |
+| **SCARD** key | Pobranie ilości elementów w zbiorze |
+| **SMOVE** source destination member | Przesunięcie elementu pomiędzy zbiorami |
+| **SISMEMBER** key member | Sprawdzenie czy wartość jest elementem zbioru |
+| **SREM** key member | Usunięcie elementu ze zbioru |
+| **SPOP** key [count] | Usunięcie i pobranie pojedyńczego lub większej ilości losowych elementów ze zbioru |
+| **SRANDMEMBER** key [count] | Pobranie pojedyńczego lub większej ilości losowych elementów ze zbioru |
+| **SUNION** key [key] | Suma zbiorów |
+| **SUNIONSTORE** destination key [key] | Suma zbiorów i zapisanie ich pod nowym kluczem |
+| **SINTER** key [key] | Część wspólna zbiorów |
+| **SINTERSTORE** desitination key [key] | Część wspólna zbiorów i zapisanie ich pod nowym kluczem |
+| **SDIFF** key [key] | Różnica zbiorów |
+| **SDIFFSTORE** desitination key [key] | Różnica zbiorów i zapisanie ich pod nowym kluczem |
+
+### Sorted Sets
+
+| Komenda  | Opis   |
+|---|---|
+| **ZADD** key score member | Dodanie elementu do zbioru  |
+| **ZREM** key member | Usunięcie elementu ze zbioru  |
+| **ZINCRBY** key increment member | Zwiększego wartości klucza w zbiorze  |
+| **ZSCORE** key member | Pobranie wyniku elementu ze zbioru  |
+| **ZSCAN** key cursor | Pobranie elementów ze zbioru |
+| **ZCARD** key | Pobranie ilości elementów ze zbioru |
+| **ZCOUNT** key min max | Pobranie ilości elementów ze zbioru, których wynik jest pomiędzy wartościami min i max |
+| **ZRANK** key member | Pobranie rankingu na podstawie wyniku od najniższej wartości |
+| **ZREVRANK** key member | Pobranie rankingu na podstawie wyniku od najwyższej wartości |
+| **ZRANGEBYSCORE** key min max [withscores] | Pobranie elementów w zakresie rankingu |
+
+### Lists
+
+| Komenda  | Opis   |
+|---|---|
+| **LPUSH** key value [value] | Dodanie elementu do listy od lewej strony (początek) |
+| **RPUSH** key value [value] | Dodanie elementu do listy od prawej strony (koniec) |
+| **LRANGE** key start stop  | Pobranie fragmentu elementów listy |
+| **LREM** key count value  | Usunięcie określonej ilości elementów z listy począwszy od podanej wartości |
+| **LPOP** key  | Pobranie i usunięcie elementu z listy od lewej strony (początek) |
+| **RPOP** key  | Pobranie i usunięcie elementu z listy od prawej strony (koniec)|
+| **RPOPLPUSH** key  | Przeniesienie elementu pomiędzy listami |
+| **LLEN** key  | Pobranie ilości elementów listy |
+| **LTRIM** key start stop | Wycina fragment listy |
+
+### Geo
+
+| Komenda  | Opis   |
+|---|---|
+| **GEOADD** key longitude latitude member | Dodanie elementu o podanej pozycji do zbioru |
+| **GEOPOS** key member  | Pobranie pozycji elementu |
+| **GEOHASH** key member  | Pobranie pozycji elementu w formacie GeoHash |
+| **GEODIST** key member1 member2 [unit] ]| Obliczenie odległości pomiędzy elementami |
+| **GEOSEARCH** key ...   | Wyszukiwanie elementów w określonym obszarze |
+| **GEOSEARCHSTORE** key ...   | Wyszukiwanie elementów w określonym obszarze i zapisanie wyników do osobnego zbioru |
+| **GEORADIUS** key longitude latitude radius   | Wyszukiwanie elementów w określonym promieniu |
+| **GEORADIUSBYMEMBER** key member radius   | Wyszukiwanie elementów w określonym promieniu od podanego elementu |
+
+
+### Bitmaps
+
+| Komenda  | Opis   |
+|---|---|
+| **SETBIT** key offset value | Ustawienie bitu |
+| **GETBIT** key offset | Pobranie bitu |
+| **BITOP** operation destkey key | Wykonanie operacji bitowej na kluczach |
+| **BITCOUNT** key [start end] | Obliczenie ilości ustawionych bitów na 1 |
+| **BITPOS** key [start] [end] | Pobranie pozycji bitu ustawionego na 1 |
+
+
+### Transakcje
+
+| Komenda  | Opis   |
+|---|---|
+| **MULTI**  | Rozpoczęcie bloku transakcji |
+| **EXEC** | Wykonanie wszystkich komend |
+| **DISCARD** | Porzucenie wszystkich komend |
+| **WATCH** key [key] | Śledzenie zmian klucza |
+| **UNWATCH** | Zwolnienie śledzenie zmian klucza |
+
+
+### Pub/Sub
+
+| Komenda  | Opis   |
+|---|---|
+| **SUBSCRIBE** channel [channel ...] | Nasłuchiwanie komunikatów publikowanych do podanego kanału |
+| **PSUBSCRIBE** pattern [pattern] | Nasłuchiwanie komunikatów według wzorca |
+| **PUBLISH** channel message | Wysłanie komunikatu na kanał |
+| **UNSUBSCRIBE** [channel] | Zatrzymanie nasłuchiwania komunikatów |
+
+### Stream
+
+| Komenda  | Opis   |
+|---|---|
+| **XADD** key ID field string [field string...] | Pisanie do strumienia |
+| **XREAD** [count] STREAMS key ID | Czytanie ze strumienia |
+| **XLEN** key | Pobranie długości strumienia |
+
+
+
