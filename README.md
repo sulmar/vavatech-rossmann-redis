@@ -570,7 +570,7 @@ RPOPLPUSH ordered delivered
 ### Sets
 
 #### Opis
-Nieuporządkowana kolekcja **unikalnych** elementów (strings).
+Nieuporządkowany zbiór **unikalnych** elementów.
 
 - Do 2^32 elementów w każdym kluczu
 - zastosowania
@@ -657,6 +657,60 @@ SDIFF warszawa bydgoszcz
 ~~~
 SDIFFSTORE diff online offline
 ~~~
+
+
+### Sorted Sets
+
+#### Opis
+- Uporządkowane zbiory elementów. Każdemu elementowi można przypisać wagę (score).
+
+- Do 2^32 elementów w każdym kluczu
+- zastosowania
+    - listy rankingowe
+    - wyszukiwarki
+
+#### Podstawowe operacje
+
+Dodanie elementów
+~~~
+ZADD skills:john 100 redis
+ZADD skills:john 99 sql
+ZADD skills:john 94 nosql
+ZADD skills:john 70 csharp
+ZADD skills:john 30 javascript
+ZADD skills:john 2 python
+~~~
+
+- Pobranie ilości elementów
+~~~
+ZCARD skills:john 
+~~~
+
+- Pobranie rankingu podanego klucza 
+~~~
+ZSCORE skills:john redis
+~~~
+
+- Pobranie elementów wg rankingu
+~~~
+ZRANGEBYSCORE skills:john 50 100
+~~~
+
+- Zwiększenie rankingu 
+~~~ 
+ZINCRBY skills:john 1 nosql  
+~~~
+
+ Usunięcie elementu ze zbioru
+~~~
+ZREM skills:john python
+~~~
+
+
+
+
+
+
 
 ## Autoryzacja
 
