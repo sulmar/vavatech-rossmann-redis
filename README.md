@@ -339,6 +339,8 @@ INFO Server
 ### Strings
 
 #### Opis
+Klucz może przechowywać tylko jedną wartość.
+
 - do 2^32 bitów (512MB) na każdy klucz
 - zastosowania
     - czysty tekst (np. przechowywanie strony www)
@@ -488,6 +490,69 @@ TTL greeting
 ~~~
 PERSIST greeting
 TTL greeting
+~~~
+
+### Hash
+
+#### Opis
+Tablice asocjacyjne. Klucz może przechowywać wiele wartości w poszczególnych polach.
+
+#### Podstawowe operacje
+
+Jeśli chcesz zmodyfikować cały obiekt zwykły string wystarczy:
+~~~
+SET user:marcin { 'name':'Marcin Sulecki', 'email': 'marcin.sulecki@gmail.com'}
+~~~
+
+Natomiast w przypadku, gdy chcesz mieć dostęp do pojedynczych pól lepszym rozwiązaniem będą tablice asosjacyjne
+
+- Dodanie wartości
+~~~
+HSET user1 firstname John
+HSET user1 lastname Smith
+HSET user1 email john.smith@domain.com
+HSET user1 points 10
+~~~
+
+- Dodanie wielu wartości
+~~~
+HMSET user2 firstname "Bob" lastname "Smith" email bob@domain.com phone 555-123-123
+~~~
+
+- Pobranie wybranego pola
+~~~
+HGET user1 firstname
+HGET user1 lastname
+~~~
+
+- Pobranie wartości wielu pól
+~~~
+HMGET user1 firstname lastname
+~~~
+
+- Pobranie wszystkich pól
+~~~
+HKEYS user1
+~~~
+
+- Pobranie wszystkich wartości
+~~~
+HVALS user1
+~~~
+
+- Pobranie wszystkich pól i wartości
+~~~
+HGETALL user1
+~~~
+
+- Inkrementacja wybranego pola
+~~~
+HINCRBY user1 points 5
+~~~
+
+- Usunięcie wybranego pola
+~~~
+HDEL user1 phone
 ~~~
 
 
