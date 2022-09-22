@@ -805,6 +805,85 @@ ZINCRBY skills:john 1 nosql
 ZREM skills:john javascript
 ~~~
 
+### Bitmaps
+
+#### Opis 
+String, który może być przetwarzany za pomocą operacji bitowych.
+
+
+#### Podstawowe operacje
+
+- Ustawienie wartość bitu na określonej pozycji
+~~~
+SETBIT article1:today 5 1
+SETBIT article2:today 5 1
+SETBIT article2:today 3 1
+SETBIT article2:today 2 1
+SETBIT article1:today 2 1
+~~~
+
+Pobranie bitu
+~~~
+GETBIT article1:today 5
+~~~
+
+Operacja AND
+~~~
+BITOP AND readbotharticles article1:today article2:today
+GETBIT readbotharticles 2
+GETBIT readbotharticles 3
+GETBIT readbotharticles 5
+~~~
+
+Operacja OR
+~~~
+BITOP OR readanyarticle article1:today article2:today
+GETBIT readanyarticle 2
+GETBIT readanyarticle 3
+GETBIT readanyarticle 5
+~~~
+
+Obliczenie ilości ustawionych bitów na 1
+~~~
+BITCOUNT readbotharticles
+~~~
+
+
+### Geo
+
+#### Opis 
+- Uporządkowane zbiory elementów. Każdemu elementowi można przypisać pozycję (długość i szerokość geograficzną). Geo oparty jest o _Sorted List_.
+
+
+#### Podstawowe operacje
+- Dodanie pozycji
+~~~
+GEOADD vehicles 52.361389 19.115556 Vehicle1
+GEOADD vehicles 52.361389 19.115556 Vehicle2
+GEOADD vehicles 52.361389 19.115556 Vehicle3
+GEOADD vehicles 52.361389 19.115556 Vehicle4
+~~~
+
+- Pobranie pozycji określonego klucza
+~~~
+GEOPOS vehicles Vehicle2
+~~~
+
+- Obliczenie dystansu pomiędzy dwoma pozycjami
+~~~ 
+GEODIST vehicles Vehicle1 Vehicle4 km
+~~~
+
+- Wyszukanie pozycji w określonym promieniu
+~~~
+GEORADIUS vehicles 0 0 200 km
+~~~
+
+- Usunięcie elementu ze zbioru
+~~~
+ZREM vehicles Vehicle2
+~~~
+
 
 ## Autoryzacja
 
