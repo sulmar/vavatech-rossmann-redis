@@ -274,4 +274,158 @@ docker-compose down
 | **CLUSTER KEYSLOT** key | Obliczenie funkcji hash dla klucza |
 
 
+## Cluster
 
+### Linux
+
+
+1. Utwórz plik konfiguracyjny
+~~~ bash
+vim redis.conf        
+~~~
+
+_redis.conf_
+~~~ 
+port 7000
+cluster-enabled yes
+cluster-config-file nodes.conf
+cluster-node-timeout 5000
+appendonly yes
+~~~
+
+
+2. Utwórz podkatalogi
+~~~ bash
+mkdir 7000 7001 7002 7003 7004 7005 7006 7007
+~~~
+
+3. Skopiuj pliki konfiguracyjny do poszczególnych katalogów
+~~~ bash
+cp redis.conf 7000/redis.conf                                   
+...
+cp redis.conf 7007/redis.conf                                   
+~~~
+                         
+3. Zmień porty w poszczególnych plikach redis.conf
+~~~ bash
+vim 7000/redis.conf
+...
+vim 7007/redis.conf
+~~~
+
+4. Uruchom serwery
+~~~ bash
+cd 7000
+redis-server ./redis.conf  
+...
+cd 7007
+redis-server ./redis.conf  
+~~~
+
+5. Utwórz klaster
+~~~ bash
+redis-cli --cluster create 127.0.0.1:7000 127.0.0.1:7001 \
+127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 127.0.0.1:7006 127.0.0.1:7007 --cluster-replicas 1
+~~~
+
+6. Połącz się do jednego z wezłów master
+~~~ bash
+redis-cli -p 7000 -c   
+~~~
+
+7. Dodaj klucze
+~~~ 
+SET foo Hello
+SET boo World
+~~~
+
+Możesz zauważyć, że klucze zapisywane są w różnych slotach.
+
+- informacje o slotach (przestarzałe): 
+~~~
+CLUSTER SLOTS 
+~~~
+
+- informacje o slotach (od wersji 7.0)
+~~~
+CLUSTER SHARDS 
+~~~
+
+- informacje o działaniu klastra
+~~~
+CLUSTER INFO
+~~~
+
+- Obliczenie funkcji hash dla klucza o podanej nazwie
+~~~
+CLUSTER KEYSLOT foo
+~~~
+
+(klucz nie musi istnieć)
+
+### Problemy (błąd CROSSSLOT)
+
+
+
+#### Scenariusz 1
+
+- Przykład
+~~~
+SADD user:512:following user:123 user:321 user:132
+CLUSTER KEYSLOT user:512:following 
+SADD user:512:followed_by user:123 user:132 
+CLUSTER KEYSLOT user:512:followed_by
+~~~
+
+- Problem
+~~~
+SINTER user:512:following user:512:followed_by
+~~~
+_(error) CROSSSLOT Keys in request don't hash to the same slot_
+
+- Przyczyna
+Klucze znajdują się w innych slotach.
+
+- Rozwiązanie
+~~~
+SADD user:{512}:following user:123 user:321 user:132
+CLUSTER KEYSLOT user:{512}:following 
+~~~
+
+{...} - oznacza, że tylko dla tej części klucza ma być obliczony hash, dzięki temu pozostała część nazwy klucza nie ma znaczenia
+
+~~~
+SADD user:{512}:followed_by user:123 user:132
+CLUSTER KEYSLOT user:{512}:followed_by
+~~~
+
+- Sprawdzenie
+~~~
+SINTER user:{512}:following user:{512}:followed_by
+~~~ 
+
+#### Scenariusz 2
+
+- Przykład
+~~~ 
+SET foo Hello
+SET boo World
+~~~ 
+
+- Problem
+~~~
+MGET foo boo
+~~~
+
+_(error) CROSSSLOT Keys in request don't hash to the same slot_
+
+- Rozwiązanie
+~~~
+CLUSTER KEYSLOT foo
+CLUSTER KEYSLOT boo
+CLUSTER KEYSLOT f{oo}
+CLUSTER KEYSLOT b{oo}
+SET f{oo} Hello
+SET b{oo} World
+MGET f{oo} b{oo}
+~~~
