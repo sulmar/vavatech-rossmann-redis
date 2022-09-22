@@ -337,6 +337,8 @@ INFO Server
 ~~~
 
 ### Strings
+
+#### Opis
 - do 2^32 bitów (512MB) na każdy klucz
 - zastosowania
     - czysty tekst (np. przechowywanie strony www)
@@ -344,6 +346,8 @@ INFO Server
     - surowe bity/flagi (dzienna aktywność użytkowników)
     - zawartość binarnych plików (PDF, obrazy)
     - obiekty json
+
+#### Podstawowe operacje
 
 - Ustawienie wartości klucza (tekst)
 ~~~
