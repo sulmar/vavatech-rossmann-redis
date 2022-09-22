@@ -284,6 +284,34 @@ docker-compose down
 | **CLUSTER KEYSLOT** key | Obliczenie funkcji hash dla klucza |
 
 
+## Transakcje
+- Zatwierdzenie transakcji
+
+Scenariusz: John wykonuje przelew dla Jeny
+
+~~~
+MSET john:debet 100 jeny:debet 100
+MULTI
+DECRBY john:debet 40
+INCRBY jeny:debet 40
+EXEC 
+~~~
+
+Polecenie **MULTI** powoduje, że wszystkie operacje od tego momentu są kolejkowane. Dopiero operacja **EXEC** je faktycznie wykonuje.
+
+- Wycofanie transakcji
+Scenariusz: Jeny zwraca pieniądze Johnemu, ale rozmyśla się.
+
+~~~
+MSET jeny:debet 100 john:debet 100 
+MULTI
+DECRBY john:debet 40
+INCRBY jeny:debet 40
+DISCARD 
+~~~
+
+Polecenie **MULTI** powoduje, że wszystkie operacje od tego momentu są kolejkowane. Dopiero operacja **DISCARD** czyści kolejkę operacji.
+
 ## Cluster
 
 ### Linux
