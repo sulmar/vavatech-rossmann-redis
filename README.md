@@ -351,6 +351,87 @@ EXEC
 W przypadku gdy w ktoś w międzyczasie zmienił zawartość obserwowanego klucza, transakcja zostaje wycofana.
 
 
+## Skrypty
+
+- Wykonane wyrażenia
+~~~ lua
+EVAL "return redis.call('set','foo', 'Hello')" 0
+EVAL "return redis.call('get','foo')" 0 
+~~~
+
+Ostatni parametr określa ilość parametrów. W przypadku gdy nie przekazujemy żadnych parametrów należy go ustawić na wartość 0.
+
+- Przekazanie parametru
+
+Parametry skryptu podzielone są na 2 grupy: **KEYS** klucze i **ARGV** argumenty. Przed nimi należy podać ilość parametrów.
+Parametry indeksowane są od 1.
+
+**Uwaga** Tablice w języku LUA rozpoczynają się od 1.
+
+~~~ lua
+EVAL "return redis.call('set',KEYS[1], ARGV[1])" 1 message Hello
+~~~
+
+~~~ lua
+EVAL "return redis.call('get',KEYS[1])" 1 foo 
+~~~
+
+- Wykonanie skryptu z pliku 
+
+_hello.lua_
+
+~~~ lua
+local msg = "Hello, world!"
+return msg
+~~~
+
+~~~ bash
+redis-cli --EVAL hello.lua
+~~~
+
+
+- Załadowanie skryptu do pamięci
+~~~ 
+SCRIPT LOAD "return redis.call('set',KEYS[1], ARGV[1])"
+~~~
+
+Operacja zwróci SHA.
+
+- Wykonanie skryptu
+~~~
+EVALSHA {sha} 1 message "Hello World"
+~~~
+
+- Załadowanie skryptu z pliku
+~~~ bash
+redis-cli -x SCRIPT LOAD < hello.lua
+~~~
+
+- Przerywanie skryptu
+~~~ lua
+while(true)
+do
+end
+return 0
+~~~
+
+~~~ bash
+SCRIPT KILL
+~~~
+
+- Wstawianie danych
+_create-users.lua_
+~~~ lua
+for i=1,10000 do redis.call('SADD', 'users', "user:"..i) end
+return 0
+~~~
+
+- Wykonanie skryptu
+~~~
+EVALSHA {sha} 1 count 1000
+~~~
+
+
 
 ## Cluster
 
