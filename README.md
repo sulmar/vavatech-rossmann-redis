@@ -314,6 +314,32 @@ DISCARD
 
 Polecenie **MULTI** powoduje, że wszystkie operacje od tego momentu są kolejkowane. Dopiero operacja **DISCARD** czyści kolejkę operacji.
 
+### Śledzenie zmian klucza
+
+Scenariusz: _John wykonuje przelew dla Jeny_ ale w międzyczasie inny użytkownik modyfikuje stan konta Johna
+
+1. Użytkownik nr 1 zaczyna wprowadzać zmiany:
+~~~
+MULTI
+WATCH john:debet
+DECRBY john:debet 40
+INCRBY jeny:debet 40
+~~~
+
+2. Użytkownik nr 2 modyfikuje w międzyczasie wartość klucza:
+~~~
+INCRBY john:debet 50
+~~~
+
+3. Użytkownik nr 1 zatwierdza transakcję
+~~~
+EXEC 
+~~~
+
+W przypadku gdy w ktoś w międzyczasie zmienił zawartość obserwowanego klucza, transakcja zostaje wycofana.
+
+
+
 ## Cluster
 
 ### Linux
