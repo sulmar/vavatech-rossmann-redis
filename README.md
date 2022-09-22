@@ -884,6 +884,61 @@ GEORADIUS vehicles 0 0 200 km
 ZREM vehicles Vehicle2
 ~~~
 
+### Pub/Sub
+
+#### Opis
+Mechanizm umożliwiający realizację wzorca publish-consument. Zamiast klucza jest kanał (channel). 
+Klienci wysyłają wiadomości na określony kanał a odbiorcy otrzymują te wiadomości.
+
+- Utworzenie subskrypcji
+~~~
+SUBSCRIBE sensors:kitchen:temp
+~~~
+
+- Wysłanie wiadomości
+~~~
+PUBLISH sensors:kitchen:temp 21.01
+PUBLISH sensors:bathroom:temp 22.50
+PUBLISH sensors:kitchen:temp 20.01
+PUBLISH sensors:bathroom:humadity 99
+~~~
+
+Odbiorca będzie otrzymywać tylko wiadomości o temperaturze w kuchni zgodnie z szablonem _sensors:kitchen:temp_
+
+Utworzenie subskrypcji z użyciem wzorca
+~~~
+PSUBSCRIBE sensors:*:temp
+~~~
+
+Odbiorca będzie otrzymywać wiadomości o temperaturze ze wszystkich pomieszczeń, zgodnie z szablonem _sensors:*:temp_.
+
+~~~
+? - pojedynczy znak
+* - dowolny ilość znaków
+[ae] - zbiór znaków
+~~~
+
+Utworzenie subskrypcji z użyciem wzorca
+~~~
+PSUBSCRIBE sensors:room?:temp
+~~~
+
+- Wysłanie wiadomości
+~~~
+PUBLISH sensors:kitchen:temp 21.01
+PUBLISH sensors:room1:temp 22.50
+PUBLISH sensors:room2:temp 20.01
+PUBLISH sensors:bathroom:humadity 99
+~~~
+
+Odbiorca będzie otrzymywać wiadomości o temperaturze ze wszystkich pokoi, zgodnie z szablonem _sensors:room?:temp_.
+
+
+- Usunięcie subskrypcji
+~~~
+UNSUBSCRIBE
+~~~
+
 
 ## Autoryzacja
 
