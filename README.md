@@ -296,6 +296,198 @@ docker-compose down
 | **SCRIPT DEBUG**  | Uruchomienie trybu śledzenia uruchamianych skryptów |
 
 
+## Praca
+
+
+
+### Podstawy
+- Uruchomienie klienta
+~~~
+> redis-cli
+~~~
+
+- Sprawdzenie czy serwer działa
+~~~
+PING
+~~~
+
+- Wyświetlenie komunikatu
+~~~ 
+ECHO 'Hello World'
+~~~
+
+- Wyczyszczenie konsoli
+~~~
+CLEAR
+~~~
+
+- Wyjście z konsoli
+~~~
+QUIT
+~~~
+
+- Włączenie śledzenia
+~~~
+MONITOR
+~~~
+
+- Wyświetlenie informacji o serwerze
+~~~
+INFO Server
+~~~
+
+### Strings
+- do 2^32 bitów (512MB) na każdy klucz
+- zastosowania
+    - czysty tekst (np. przechowywanie strony www)
+    - wartości numeryczne (np. ilość zgromadzonych punktów)    
+    - surowe bity/flagi (dzienna aktywność użytkowników)
+    - zawartość binarnych plików (PDF, obrazy)
+    - obiekty json
+
+- Ustawienie wartości klucza (tekst)
+~~~
+SET message "Hello World"
+GET message
+~~~
+
+- Sprawdzenie czy klucz istnieje
+~~~
+EXISTS message
+~~~
+
+- Usunięcie klucza
+~~~
+DEL message
+~~~
+
+- Usunięcie klucza bez blokowania
+~~~
+UNLINK message
+~~~
+Komenda odpina klucz z przestrzeni roboczej. Faktyczne usunięcie nastąpi później asynchronicznie (w osobnym wątku).
+
+- Ustawienie wartości klucza (liczba całkowita)
+~~~
+SET points 100
+GET points
+~~~
+
+- Inkrementacja wartości
+~~~
+INCR points
+GET points
+~~~
+
+- Dekrementacja wartości
+~~~
+DECR points
+GET points
+~~~
+
+- Inkrementacja wartości o podaną wartość
+~~~
+INCRBY points 10
+GET points
+~~~
+
+- Dekrementacja wartości o podaną wartość
+~~~
+DECRBY points 10
+GET points
+~~~
+
+- Ustawienie wartości klucza (liczba rzeczywista)
+~~~
+SET temp 21.45
+GET temp
+~~~
+
+- Inkrementacja liczby rzeczywistej
+~~~
+SET temp 21.45
+INCRBYFLOAT room1:temp 0.5
+~~~
+
+- Dekrementacja liczby rzeczywistej
+~~~
+INCRBYFLOAT room1:temp -0.25
+~~~
+
+- Konwencja nazewnictwa kluczy (przestrzeń nazw)
+~~~
+SET server:name server1
+GET server:name
+SET server:port 5000
+GET server:port
+~~~
+
+- Ustawienie wartości wielu kluczom
+~~~ 
+MSET key1 "Hello" key2 "World"
+~~~
+
+- Pobranie wartości wielu kluczy
+~~~
+MGET key1 key2
+~~~
+
+- Dodanie wartości do klucza
+~~~
+SET message "Hello, "
+APPEND message " World!"
+~~~
+
+- Pobranie zakresu wartości
+~~~
+GETRANGE message 0 4
+GETRANGE message 6 10
+~~~
+
+- Zmiana nazwy klucza
+~~~
+RENAME message greeting
+~~~
+
+#### Klucze tymczasowe
+
+- Ustawienie wartości klucza tymczasowego
+~~~
+SET token "ABC123" EX 60
+TTL token
+~~~
+
+- Ustawienie wartości klucza tymczasowego (składnia skrócona)
+~~~
+SETEX token 60 "ABC123"
+TTL token
+~~~
+
+- Ustawienie klucza tymczasowego, który wygaśnie o dokładnie podanej dacie i godzinie.
+~~~
+SET ticket "redis"
+EXPIREAT ticket 1573041600
+TTL ticket
+~~~
+Czas podawany jest w formacie Unix timestamp (ilość sekund od 1970-01-01)
+Wskazówka: skorzystaj z konwertera https://www.epochconverter.com/
+
+
+- Ustawienie wygaśnięcia klucza
+~~~
+SET greeting "Hello World"
+EXPIRE greeting 60
+TTL greeting
+~~~
+
+- Utrwalenie tymczasowego klucza
+~~~
+PERSIST greeting
+TTL greeting
+~~~
+
+
+
 ## Autoryzacja
 
 - Ustawienie hasła dla użytkownika domyślnego (default)
