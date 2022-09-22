@@ -100,6 +100,8 @@ docker-compose down
 | **QUIT** | Zamknięcie połączenia |
 
 ### Diagnostyka
+| Komenda  | Opis   |
+|---|---|
 | **INFO** [section] | Wyświetlenie informacji |
 
 
