@@ -104,6 +104,9 @@ docker-compose down
 |---|---|
 | **INFO** [section] | Wyświetlenie informacji |
 | **MONITOR** | Włączenie śledzenia |
+| **OBJECT FREQ**  key | Pobranie częstotliwości dostępu do klucza |
+| **MEMORY USAGE** key | Pobranie zajętości pamięci przez klucz |
+ 
 
 ### Konfiguracja
 | Komenda  | Opis   |
