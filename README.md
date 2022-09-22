@@ -970,12 +970,28 @@ XREAD count 2 streams events 1572983745546-0
 
 ## Backup
 
-- Backup wybranej bazy danych na dysku (snapshoth)
+### Rodzaje kopii
+
+#### Migawka (snapshot)
+- zapis stanu bazy na dysku w pliku *.rdb w formacie _RDB Dumb Format_ 
+- zawiera binarną reprezentację zawartości pamięci bazy na dysku
+
+#### AOF (Append-only)
+- dziennik (_journal_), który zapisuje wszystkie zmiany w bazie
+- umożliwia powrót do wcześniejszego stanu
+
+Należy włączyć w pliku konfiguracyjnym:
+'appendonly yes'
+
+
+### Operacje 
+
+- Backup wybranej bazy danych na dysku
 ~~~
 SAVE
 ~~~
 Powstanie plik _var/libs/redis/dump.rdb_
-SAVE uruchamiany jest synchronicznie i blokuje połączenia klientów. Niezalecany na środowisku produkcyjnym. Zamiast tego użyj BGSAVE
+SAVE uruchamiany jest synchronicznie i blokuje połączenia klientów. Niezalecany na środowisku produkcyjnym. Zamiast tego użyj polecenia _BGSAVE_
 
 - Backup asynchroniczny
 ~~~
