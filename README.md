@@ -285,9 +285,10 @@ docker-compose down
 
 
 ## Transakcje
-- Zatwierdzenie transakcji
 
-Scenariusz: John wykonuje przelew dla Jeny
+### Zatwierdzenie transakcji
+
+Scenariusz: _John wykonuje przelew dla Jeny_
 
 ~~~
 MSET john:debet 100 jeny:debet 100
@@ -299,8 +300,9 @@ EXEC
 
 Polecenie **MULTI** powoduje, że wszystkie operacje od tego momentu są kolejkowane. Dopiero operacja **EXEC** je faktycznie wykonuje.
 
-- Wycofanie transakcji
-Scenariusz: Jeny zwraca pieniądze Johnemu, ale rozmyśla się.
+### Wycofanie transakcji
+
+Scenariusz: _Jeny zwraca pieniądze Johnemu, ale rozmyśla się._
 
 ~~~
 MSET jeny:debet 100 john:debet 100 
