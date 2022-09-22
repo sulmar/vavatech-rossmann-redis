@@ -117,13 +117,11 @@ docker-compose down
 | **RANDOMKEY** | Pobranie losowego klucza |
 | **DUMP** key  | Pobranie serializowanej wartości klucza  |
 | **TYPE** key  | Pobranie typu klucza |
-
 | **EXPIRE** key seconds  | Ustawienie czasu wygaśnięcia klucza |
 | **EXPIREAT** key timestamp  | Ustawienie daty wygaśnięcia klucza |
 | **TTL** key | Pobranie pozostałego czasu do wygaśnięcia klucza w sekundach |
 | **PTTL** key | Pobranie pozostałego czasu do wygaśnięcia klucza w milisekundach 
 | **PERSIST** key | Wyłączenie wygasania klucza |
-
 | **KEYS** pattern | Pobranie wszystkich nazw kluczy według wzorca |
 | **SCAN** cursor [MATCH pattern] [COUNT count] [TYPE type] | Pobranie określonej ilości nazw kluczy na podstawie wzorca lub typu |
 
