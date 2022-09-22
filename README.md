@@ -265,5 +265,13 @@ docker-compose down
 | **XREAD** [count] STREAMS key ID | Czytanie ze strumienia |
 | **XLEN** key | Pobranie długości strumienia |
 
+### Cluster
+| Komenda  | Opis   |
+|---|---|
+| **CLUSTER SLOTS** | Wyświetlenie informacji o slotach  (przestarzałe)|
+| **CLUSTER SHARDS** | Wyświetlenie informacji o slotach |
+| **CLUSTER INFO** | Wyświetlenie informacji o działaniu klastra |
+| **CLUSTER KEYSLOT** key | Obliczenie funkcji hash dla klucza |
+
 
 
