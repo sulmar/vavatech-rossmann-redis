@@ -105,6 +105,13 @@ docker-compose down
 | **INFO** [section] | Wyświetlenie informacji |
 | **MONITOR** | Włączenie śledzenia |
 
+### Konfiguracja
+| Komenda  | Opis   |
+|---|---|
+| **CONFIG GET** parameter | Pobranie wartości parametru konfiguracji |
+| **CONFIG SET** parameter value | Ustawienie wartości parametru konfiguracji |
+| **CONFIG REWRITE** | Zapisanie konfiguracji w pamięci |
+
 
 ### Podstawowe
 
