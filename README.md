@@ -939,6 +939,55 @@ Odbiorca będzie otrzymywać wiadomości o temperaturze ze wszystkich pokoi, zgo
 UNSUBSCRIBE
 ~~~
 
+### Streams
+
+#### Opis
+Strumienie umożliwiają zapisywanie do zbioru informacji i równoczesne odczytywanie tych informacji.
+
+#### Podstawowe operacje
+
+- Pisanie do strumienia
+~~~
+XADD events * user john action login
+XADD events * user john action visit page index.htm
+XADD events * user john action purchase item computer
+XADD events * user john action purchase item monitor
+XADD events * user john action paid amount 1000
+~~~
+
+- Czytanie ze strumienia 
+~~~
+XREAD count 2 streams events 0
+XREAD count 2 streams events 1572983745546-0
+~~~
+
+
+## Backup
+
+- Backup wybranej bazy danych na dysku (snapshoth)
+~~~
+SAVE
+~~~
+Powstanie plik _var/libs/redis/dump.rdb_
+SAVE uruchamiany jest synchronicznie i blokuje połączenia klientów. Niezalecany na środowisku produkcyjnym. Zamiast tego użyj BGSAVE
+
+- Backup asynchroniczny
+~~~
+BGSAVE
+~~~
+Umożliwia dodawanie i modyfikacje danych podczas tej operacji, ale ich zmiany nie będą zapisane w tej migawce.
+
+- Backup automatyczny
+~~~
+SAVE 60 1
+~~~
+
+Oznacza, że backup będzie tworzony co 60 sekund jeśli przynajmniej jeden klucz został zmieniony.
+
+- Pobranie katalogu w którym znajduje się backup
+~~~
+CONFIG GET dir
+~~~
 
 ## Autoryzacja
 
