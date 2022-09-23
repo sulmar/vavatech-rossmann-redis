@@ -498,6 +498,14 @@ SETEX token 60 "ABC123"
 TTL token
 ~~~
 
+- Nadpisanie wartości klucza tymczasowego z zachowaniem czasu
+~~~
+SET token "XYZ321" KEEPTTL
+~~~
+
+Bez parametru _KEEPTTL_ klucz zostałby nadpisany i ustawiony czas odliczałbym od początku.
+
+
 - Ustawienie klucza tymczasowego, który wygaśnie o dokładnie podanej dacie i godzinie.
 ~~~
 SET ticket "redis"
