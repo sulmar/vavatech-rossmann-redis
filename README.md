@@ -837,10 +837,19 @@ ZRANGEBYSCORE skills:john -inf +inf
 ZINCRBY skills:john 1 nosql  
 ~~~
 
- Usunięcie elementu ze zbioru
+- Usunięcie elementu ze zbioru
 ~~~
 ZREM skills:john javascript
 ~~~
+
+- Agregacja zbiorów
+~~~
+ZADD men100m:round:1 9.99 Runner1 10.00 Runner2 10.03 Runner3
+ZADD men100m:round:2 10.99 Runner1 9.99 Runner2 10.03 Runner3
+ZUNION 2 men100m:round:1 men100m:round:2 AGGREGATE MIN WITHSCORES 
+~~~
+
+
 
 ### Bitmaps
 
