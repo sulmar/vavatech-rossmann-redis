@@ -363,6 +363,29 @@ SET message "Hello World"
 GET message
 ~~~
 
+- Nadpisanie wartości klucza
+~~~
+SET message "Hello Redis"
+GET message
+~~~
+
+- Ustawienie wartości klucza tylko jeśli wcześniej nie istniał
+~~~
+SETNX message "Hello Redis"
+SETNX message "Hello World"
+~~~
+
+- Ustawienie wartości klucza tylko jeśli wcześniej nie istniał (za pomocą parametru)
+~~~
+SET message "Hello Redis" NX
+~~~
+
+- Ustawienie wartości istniejącego klucza. Nie tworzy nowego klucza.
+~~~
+SET greetings "Hello World" XX
+~~~
+
+
 - Sprawdzenie czy klucz istnieje
 ~~~
 EXISTS message
