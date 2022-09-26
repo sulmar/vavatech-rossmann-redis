@@ -1438,3 +1438,37 @@ SET f{oo} Hello
 SET b{oo} World
 MGET f{oo} b{oo}
 ~~~
+
+
+## Integracja
+
+### Node.js
+
+1. Zainstaluj pakiet
+~~~ bash
+npm install redis
+~~~
+
+2. Utwórz _app.js_
+~~~ nodejs
+const redis = require('redis')
+const client = redis.createClient();
+
+client
+    .on('ready', () => console.log('Connected to Redis.'))
+    .on('error', err => console.error('Redis error', err));
+
+client.connect().then(() => {
+
+    client.ping().then(response => console.log(response));
+
+    client.set('foo', 'boo').then(response => console.log(response));
+    client.get('foo').then(value => console.log(`Value retrieved from Redis: ${value}`));    
+
+    client.set('score', 0).then(response => console.log(response));
+    client.incr('score').then(response => console.log(response));
+    client.incrBy('score', 10).then(response => console.log(response));
+    client.get('score').then(value => console.log(`Score retrieved from Redis: ${value}`));    
+
+});  
+~~~
