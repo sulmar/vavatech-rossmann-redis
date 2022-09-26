@@ -1444,13 +1444,14 @@ MGET f{oo} b{oo}
 
 ### Node.js
 
+
 1. Zainstaluj pakiet
 ~~~ bash
 npm install redis
 ~~~
 
 2. Utwórz _app.js_
-~~~ nodejs
+~~~ js
 const redis = require('redis')
 const client = redis.createClient();
 
@@ -1471,4 +1472,33 @@ client.connect().then(() => {
     client.get('score').then(value => console.log(`Score retrieved from Redis: ${value}`));    
 
 });  
+~~~
+
+#### Wersja async-await
+~~~ js
+const redis = require('redis')
+const client = redis.createClient();
+
+(async () => {
+    await client.connect();
+
+    const pingCommandResult = await client.ping();
+    console.log(pingCommandResult);
+
+    const setCommandResult = await client.set('foo', 'boo');
+    console.log(setCommandResult);
+    
+    const getCommandResult = await client.get('foo');
+    console.log(`Value retrieved from Redis: ${getCommandResult}`)
+    
+    const setScoreCommandResult = await client.set('score', 0);
+    console.log(setScoreCommandResult);
+
+    const incrCommandResult = await client.incr('score');
+    console.log(incrCommandResult);
+
+    const incrByCommandResult = await client.incrBy('score', 10);
+    console.log(`Score retrieved from Redis: ${incrByCommandResult}`);
+
+})();
 ~~~
