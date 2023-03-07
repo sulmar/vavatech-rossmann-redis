@@ -1385,7 +1385,6 @@ CLUSTER KEYSLOT foo
 
 (klucz nie musi istnieć)
 
-
 - informacje o slotach (przestarzałe): 
 ~~~
 CLUSTER SLOTS 
@@ -1400,6 +1399,8 @@ CLUSTER SHARDS
 ~~~
 CLUSTER INFO
 ~~~
+
+![Cluster Redis](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*YmO4drOx8janLaKRoc1DTw.png)
 
 
 ### Problemy (błąd CROSSSLOT)
