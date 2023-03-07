@@ -1408,6 +1408,81 @@ CLUSTER INFO
 #### Scenariusz 1
 
 - Przykład
+~~~ 
+SET foo Hello
+SET boo World
+~~~ 
+
+- Problem
+~~~
+MGET foo boo
+~~~
+
+_(error) CROSSSLOT Keys in request don't hash to the same slot_
+
+
+- Przyczyna
+Klucze znajdują się w innych slotach.
+
+Sprawdzmy to:
+~~~
+CLUSTER KEYSLOT foo
+CLUSTER KEYSLOT boo
+~~~
+
+- Rozwiązanie
+~~~
+SET f{oo} Hello
+SET b{oo} World
+MGET f{oo} b{oo}
+~~~
+
+
+Sprawdzmy to:
+~~~
+CLUSTER KEYSLOT f{oo}
+CLUSTER KEYSLOT b{oo}
+~~~
+
+
+
+#### Scenariusz 1
+
+- Przykład
+~~~
+SADD user:online user:1 user:2 user:3
+SADD user:offline user:4 user:5
+~~~
+
+- Problem
+~~~
+SUNION user:online user:offline
+~~~
+_(error) CROSSSLOT Keys in request don't hash to the same slot_
+
+- Przyczyna
+Klucze znajdują się w innych slotach.
+
+Sprawdzmy to:
+~~~
+CLUSTER KEYSLOT user:online
+CLUSTER KEYSLOT user:offline
+~~~
+
+
+
+- Rozwiązanie
+~~~
+SADD {user}:online user:1 user:2 user:3
+SADD {user}:offline user:4 user:5
+~~~
+
+{...} - oznacza, że tylko dla tej części klucza ma być obliczony hash. Pozostała część nazwy klucza nie ma znaczenia.
+
+
+#### Scenariusz 2
+
+- Przykład
 ~~~
 SADD user:512:following user:123 user:321 user:132
 SADD user:512:followed_by user:123 user:132 
@@ -1447,31 +1522,6 @@ CLUSTER KEYSLOT user:{512}:followed_by
 SINTER user:{512}:following user:{512}:followed_by
 ~~~ 
 
-#### Scenariusz 2
-
-- Przykład
-~~~ 
-SET foo Hello
-SET boo World
-~~~ 
-
-- Problem
-~~~
-MGET foo boo
-~~~
-
-_(error) CROSSSLOT Keys in request don't hash to the same slot_
-
-- Rozwiązanie
-~~~
-CLUSTER KEYSLOT foo
-CLUSTER KEYSLOT boo
-CLUSTER KEYSLOT f{oo}
-CLUSTER KEYSLOT b{oo}
-SET f{oo} Hello
-SET b{oo} World
-MGET f{oo} b{oo}
-~~~
 
 
 ## Integracja
