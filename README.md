@@ -1405,17 +1405,14 @@ CLUSTER INFO
 
 ### Problemy (błąd CROSSSLOT)
 
-
-
 #### Scenariusz 1
 
 - Przykład
 ~~~
 SADD user:512:following user:123 user:321 user:132
-CLUSTER KEYSLOT user:512:following 
 SADD user:512:followed_by user:123 user:132 
-CLUSTER KEYSLOT user:512:followed_by
 ~~~
+_(error) CROSSSLOT Keys in request don't hash to the same slot_
 
 - Problem
 ~~~
@@ -1425,6 +1422,12 @@ _(error) CROSSSLOT Keys in request don't hash to the same slot_
 
 - Przyczyna
 Klucze znajdują się w innych slotach.
+Sprawdzmy to:
+~~~
+CLUSTER KEYSLOT user:512:following 
+CLUSTER KEYSLOT user:512:followed_by
+~~~
+
 
 - Rozwiązanie
 ~~~
