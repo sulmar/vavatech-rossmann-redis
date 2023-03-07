@@ -1348,7 +1348,34 @@ SET foo Hello
 SET boo World
 ~~~
 
-Możesz zauważyć, że klucze zapisywane są w różnych slotach.
+Możesz zauważyć, że klucze zapisywane są w różnych slotach - następuje przełączanie.
+
+A cluster is divided up among 16,384 slots — the maximum number of nodes or shards in a Redis cluster.
+
+Every node in a Redis Cluster is responsible for a subset of the hash slots, so, for example, you may have a cluster with 3 nodes, where:
+
+Node A contains hash slots from 10923 to 16384. Node B contains hash slots from 5461 to 10922. Node C contains hash slots from 11001 to 16383.
+
+https://redis.io/docs/management/scaling/
+
+Wyświetlenie informacji o węzłach wraz przedziałami
+~~~
+CLUSTER NODES
+~~~
+
+- gdy Redis otrzymuje klucz, wykonuje następujące czynności:
+
+oblicza skrót klucza za pomocą funkcji hash(key)
+oblicza lokalizację klucza wykonując resztę z dzielenia skrótu przez ilość wszystkich slotów (czyli przez 16384), dzięki czemu jest w stanie znaleźć konkretny fragment logiczny, do którego należy dany klucz
+w wyniku obliczeniu skrótu, fragment logiczny mapowany jest na fizyczną instancję, w celu jego zidentyfikowania
+
+- Obliczenie funkcji hash dla klucza o podanej nazwie
+~~~
+CLUSTER KEYSLOT foo
+~~~
+
+(klucz nie musi istnieć)
+
 
 - informacje o slotach (przestarzałe): 
 ~~~
@@ -1365,12 +1392,6 @@ CLUSTER SHARDS
 CLUSTER INFO
 ~~~
 
-- Obliczenie funkcji hash dla klucza o podanej nazwie
-~~~
-CLUSTER KEYSLOT foo
-~~~
-
-(klucz nie musi istnieć)
 
 ### Problemy (błąd CROSSSLOT)
 
