@@ -1285,7 +1285,7 @@ EVALSHA {sha} 1 count 1000
 
 ## Cluster
 
-### Linux
+### Tworzenie klastra w systemie Linux
 
 
 1. Utwórz plik konfiguracyjny
@@ -1337,10 +1337,14 @@ redis-cli --cluster create 127.0.0.1:7000 127.0.0.1:7001 \
 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 127.0.0.1:7006 127.0.0.1:7007 --cluster-replicas 1
 ~~~
 
-6. Połącz się do jednego z wezłów master
+### Praca z klastrem
+
+1. Połącz się do jednego z wezłów master
 ~~~ bash
 redis-cli -p 7000 -c   
 ~~~
+
+uwaga: pamiętaj o parametrze -c
 
 7. Dodaj klucze
 ~~~ 
@@ -1350,24 +1354,29 @@ SET boo World
 
 Możesz zauważyć, że klucze zapisywane są w różnych slotach - następuje przełączanie.
 
-A cluster is divided up among 16,384 slots — the maximum number of nodes or shards in a Redis cluster.
+Klaster podzielony jest na 16384 slotów.
 
 Every node in a Redis Cluster is responsible for a subset of the hash slots, so, for example, you may have a cluster with 3 nodes, where:
 
-Node A contains hash slots from 10923 to 16384. Node B contains hash slots from 5461 to 10922. Node C contains hash slots from 11001 to 16383.
+- Node A contains hash slots from 10923 to 16384. 
+- Node B contains hash slots from 5461 to 10922. 
+- Node C contains hash slots from 11001 to 16383.
 
 https://redis.io/docs/management/scaling/
 
-Wyświetlenie informacji o węzłach wraz przedziałami
+Wyświetlenie informacji o węzłach wraz przedziałami:
 ~~~
 CLUSTER NODES
 ~~~
 
-- gdy Redis otrzymuje klucz, wykonuje następujące czynności:
+- gdy odwołujemy się do klucza obliczania jest funkcja:
+~~~
+HASH_SLOT = CRC16(key) mod 16384
+~~~
 
-oblicza skrót klucza za pomocą funkcji hash(key)
-oblicza lokalizację klucza wykonując resztę z dzielenia skrótu przez ilość wszystkich slotów (czyli przez 16384), dzięki czemu jest w stanie znaleźć konkretny fragment logiczny, do którego należy dany klucz
-w wyniku obliczeniu skrótu, fragment logiczny mapowany jest na fizyczną instancję, w celu jego zidentyfikowania
+1. oblicza skrót klucza za pomocą funkcji hash CRC16(key)
+2. oblicza resztę z dzielenia skrótu przez ilość wszystkich slotów (16384) i otrzymuje slot
+3. slot mapowany jest na fizyczną instancję
 
 - Obliczenie funkcji hash dla klucza o podanej nazwie
 ~~~
