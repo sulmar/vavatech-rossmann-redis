@@ -1443,6 +1443,8 @@ Sprawdzmy to:
 CLUSTER KEYSLOT f{oo}
 CLUSTER KEYSLOT b{oo}
 ~~~
+w tym przypadku obydwa klucze mają ten sam slot (obliczony dla {oo}).
+
 
 
 
