@@ -1367,15 +1367,29 @@ SET foo Hello
 SET boo World
 ~~~
 
-Możesz zauważyć, że klucze zapisywane są w różnych slotach - następuje przełączanie.
+Klucze zapisywane są w różnych slotach.
+
+- Rozważmy przykład:
+~~~ 
+SET user:1 a
+SET user:2 b
+SET user:3 b
+SET user:4 b
+SET user:5 b
+~~~
+
+Można zauważyć, że przy niektórych kluczah następuje przełączanie pomiędzy wezłami (Node).
+
 
 Klaster podzielony jest na 16384 slotów.
 
-Every node in a Redis Cluster is responsible for a subset of the hash slots, so, for example, you may have a cluster with 3 nodes, where:
+Każdy węzeł (node) jest odpowiedzialny za podzbiór skrótów (hash slot).
 
-- Node A contains hash slots from 10923 to 16384. 
-- Node B contains hash slots from 5461 to 10922. 
-- Node C contains hash slots from 11001 to 16383.
+Na przykład kluster z 3 węzłami:
+
+- Node A zawiera hash slots od 10923 do 16384. 
+- Node B zawiera hash slots od 5461 do 10922. 
+- Node C zawiera hash slots od 11001 do 16383.
 
 https://redis.io/docs/management/scaling/
 
