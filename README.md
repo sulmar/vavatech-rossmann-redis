@@ -1352,7 +1352,16 @@ redis-cli -p 7000 -c
 
 uwaga: pamiętaj o parametrze -c
 
-7. Dodaj klucze
+
+
+- informacje o działaniu klastra
+~~~
+CLUSTER INFO
+~~~
+
+wskazówka: upewnij się, że `cluster_state:ok`
+
+- Dodaj klucze
 ~~~ 
 SET foo Hello
 SET boo World
@@ -1399,11 +1408,6 @@ CLUSTER SLOTS
 - informacje o slotach (od wersji 7.0)
 ~~~
 CLUSTER SHARDS 
-~~~
-
-- informacje o działaniu klastra
-~~~
-CLUSTER INFO
 ~~~
 
 ![Cluster Redis](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*YmO4drOx8janLaKRoc1DTw.png)
