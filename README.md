@@ -1057,9 +1057,9 @@ BGSAVE
 ~~~
 Umożliwia dodawanie i modyfikacje danych podczas tej operacji, ale ich zmiany nie będą zapisane w tej migawce.
 
-- Backup automatyczny
+- Konfiguracja backupu
 ~~~
-SAVE 60 1
+CONFIG SET SAVE 60 1
 ~~~
 
 Oznacza, że backup będzie tworzony co 60 sekund jeśli przynajmniej jeden klucz został zmieniony.
@@ -1073,6 +1073,12 @@ CONFIG GET dir
 ~~~
 LASTSAVE
 ~~~
+
+- Wyłączenie backupu
+~~~
+CONFIG SET SAVE ""
+~~~
+
 
 - blokuje wszystkie połączenia, zapisuje dane (SAVE) i wyłącza serwer
 ~~~
