@@ -1222,26 +1222,32 @@ EVAL "return 'Hello ' .. ARGV[1]" 0 John
 
 - Wykonane polecenia Redis
 ~~~ lua
-EVAL "return redis.call('set','foo', 'Hello')" 0
-EVAL "return redis.call('get','foo')" 0 
+EVAL "return redis.call('SET','foo', 'Hello')" 0
+EVAL "return redis.call('GET','foo')" 0 
 ~~~
 
-Ostatni parametr określa ilość parametrów. W przypadku gdy nie przekazujemy żadnych parametrów należy go ustawić na wartość 0.
-
-- Przekazanie parametru
+- Przekazanie kluczy i wartości parametrów do polecenia Redis
+~~~ lua
+EVAL "return redis.call('SET',KEYS[1], ARGV[1])" 1 message Hello
+EVAL "return redis.call('GET',KEYS[1])" 1 message 
+~~~
 
 Parametry skryptu podzielone są na 2 grupy: **KEYS** klucze i **ARGV** argumenty. Przed nimi należy podać ilość parametrów.
 Parametry indeksowane są od 1.
 
+- Załadowanie skryptu
+~~~ 
+SCRIPT LOAD "return redis.call('SET',KEYS[1], ARGV[1])"
+~~~
+
+Operacja zwróci SHA.
+
+- Wykonanie skryptu
+~~~
+EVALSHA {sha} 1 message "Hello World"
+~~~
+
 **Uwaga** Tablice w języku LUA rozpoczynają się od 1.
-
-~~~ lua
-EVAL "return redis.call('set',KEYS[1], ARGV[1])" 1 message Hello
-~~~
-
-~~~ lua
-EVAL "return redis.call('get',KEYS[1])" 1 foo 
-~~~
 
 - Wykonanie skryptu z pliku 
 
@@ -1257,17 +1263,6 @@ redis-cli --EVAL hello.lua
 ~~~
 
 
-- Załadowanie skryptu do pamięci
-~~~ 
-SCRIPT LOAD "return redis.call('set',KEYS[1], ARGV[1])"
-~~~
-
-Operacja zwróci SHA.
-
-- Wykonanie skryptu
-~~~
-EVALSHA {sha} 1 message "Hello World"
-~~~
 
 - Załadowanie skryptu z pliku
 ~~~ bash
