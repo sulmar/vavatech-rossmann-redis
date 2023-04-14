@@ -1210,6 +1210,17 @@ W przypadku gdy w ktoś w międzyczasie zmienił zawartość obserwowanego klucz
 ## Skrypty
 
 - Wykonane wyrażenia
+
+~~~ lua
+EVAL "return 'Hello World'" 0
+~~~ 
+
+- Przekazywanie parametru
+~~~ lua
+EVAL "return 'Hello ' .. ARGV[1]" 0 John
+~~~ 
+
+- Wykonane polecenia Redis
 ~~~ lua
 EVAL "return redis.call('set','foo', 'Hello')" 0
 EVAL "return redis.call('get','foo')" 0 
